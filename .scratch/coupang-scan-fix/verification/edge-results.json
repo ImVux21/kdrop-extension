@@ -1,0 +1,366 @@
+[
+  {
+    "name": "floating/modern accepted count",
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "name": "floating/modern control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/modern observed fields",
+    "expected": {
+      "id": "9693648728",
+      "vendor": "95921999183",
+      "price": 195800,
+      "rating": 5,
+      "reviews": 2,
+      "rank": null
+    },
+    "actual": {
+      "id": "9693648728",
+      "vendor": "95921999183",
+      "price": 195800,
+      "rating": 5,
+      "reviews": 2,
+      "rank": null
+    },
+    "pass": true
+  },
+  {
+    "name": "floating/Studio actual table displays committed product",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/Studio table persists after reload",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/homepage accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "floating/homepage control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/homepage guidance",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/incomplete accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "floating/incomplete control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/incomplete diagnosis",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/legacy accepted count",
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "name": "floating/legacy control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/ambiguous accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "floating/ambiguous control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/foreign accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "floating/foreign control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/feeOnly accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "floating/feeOnly control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/late DOM without reload",
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "name": "floating/missing context guidance",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/missing context leaves storage empty",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "floating/storage error is distinct and visible",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "floating/failed storage commit leaves zero records",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "floating/storage failure restores control",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/modern accepted count",
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/modern control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/modern observed fields",
+    "expected": {
+      "id": "9693648728",
+      "vendor": "95921999183",
+      "price": 195800,
+      "rating": 5,
+      "reviews": 2,
+      "rank": null
+    },
+    "actual": {
+      "id": "9693648728",
+      "vendor": "95921999183",
+      "price": 195800,
+      "rating": 5,
+      "reviews": 2,
+      "rank": null
+    },
+    "pass": true
+  },
+  {
+    "name": "sidepanel/Studio actual table displays committed product",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/Studio table persists after reload",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/homepage accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/homepage control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/homepage guidance",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/incomplete accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/incomplete control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/incomplete diagnosis",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/legacy accepted count",
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/legacy control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/ambiguous accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/ambiguous control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/foreign accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/foreign control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/feeOnly accepted count",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/feeOnly control recovers",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/late DOM without reload",
+    "expected": 1,
+    "actual": 1,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/missing context guidance",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/missing context leaves storage empty",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/storage error is distinct and visible",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/failed storage commit leaves zero records",
+    "expected": 0,
+    "actual": 0,
+    "pass": true
+  },
+  {
+    "name": "sidepanel/storage failure restores control",
+    "expected": true,
+    "actual": true,
+    "pass": true
+  },
+  {
+    "name": "BSR does not count inserted ad as rank",
+    "expected": null,
+    "actual": null,
+    "pass": true
+  },
+  {
+    "name": "Unverified ranking plus ad stays unknown on rescan",
+    "expected": null,
+    "actual": null,
+    "pass": true
+  },
+  {
+    "name": "Unverified BSR fixture never invents rank 1 from position",
+    "expected": null,
+    "actual": null,
+    "pass": true
+  },
+  {
+    "name": "Unverified displayed 17 never becomes rank 1 on rescan",
+    "expected": null,
+    "actual": null,
+    "pass": true
+  },
+  {
+    "name": "srcset thumbnail is a single usable URL",
+    "expected": "https://thumbnail.coupangcdn.com/item.jpg",
+    "actual": "https://thumbnail.coupangcdn.com/item.jpg",
+    "pass": true
+  },
+  {
+    "name": "No unhandled page errors",
+    "expected": [],
+    "actual": [],
+    "pass": true
+  }
+]

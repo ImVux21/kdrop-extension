@@ -1,0 +1,86 @@
+{
+  "checked_date": "2026-10-12",
+  "source": "CUA read-only DOM of existing user tab",
+  "homepage": {
+    "url": "https://www.coupang.com/",
+    "product_anchor_count": 581,
+    "unique_product_id_count": 535,
+    "counts_scope": "All DOM references; includes hidden carousel items and repeated references. Not visible-card count or market size.",
+    "source_type_counts": {
+      "HOME_PERSONALIZED_ADS": 15,
+      "HOME_RELATED_ADS": 10,
+      "HOME_TRENDING_ADS": 15,
+      "HOME_GW_PROMOTION": 15,
+      "HOME_JIKGU_PROMOTION": 15,
+      "srp_product_ads": 409,
+      "none": 102
+    },
+    "extractor_candidate_count": 0,
+    "category_headings": [
+      "HOT! TREND",
+      "카테고리별",
+      "추천 광고상품"
+    ],
+    "first_category_card": {
+      "productId": "9334799508",
+      "itemId": "27679405325",
+      "vendorItemId": "94651440345",
+      "sourceType": "srp_product_ads",
+      "from": "home_CategoryBest_ranking",
+      "title": "[2026 신품 특가] 놀차 겨울 항균 옥수수솜 알러지케어 먼지없는 워싱 이불/이불세트/솜누빔 베개커버/패드 54옵션",
+      "sales_price_krw": 29900,
+      "anchor_class": "product-unit category-best-link impression-logged",
+      "title_selector": ".name",
+      "price_selector": ".price.price-v2 strong",
+      "badges": [
+        "ROCKET_MERCHANT",
+        "TOMORROW"
+      ]
+    },
+    "first_personalized_card": {
+      "productId": "8380300786",
+      "itemId": "24216736278",
+      "vendorItemId": "91234066521",
+      "sourceType": "HOME_PERSONALIZED_ADS",
+      "data_index": 0,
+      "click_logging_rank": 4,
+      "rating": 5,
+      "product_reviews": 118,
+      "sales_price_visible": false,
+      "discount_text": "지금 59% 할인 중"
+    },
+    "document_script_evidence": {
+      "framework": "Next.js flight payload self.__next_f.push",
+      "route_chunk": "static/chunks/app/gw/page-0c3b5053b7332310.js",
+      "props": {
+        "bestCategoryLazyLoading": true,
+        "initialCategories": "WOMAN_CLOTHE,MAN_CLOTHE,BEAUTY,BABY,FOOD,KITCHEN,LIVING,FURNITURE,ELECTRONICS,SPORTS,CAR,HOBBY,OFFICE,BOOKS,PETS,TRAVEL,BABY_FASHION,HEALTH"
+      },
+      "server_ranking_algorithm": "not observed"
+    }
+  },
+  "category": {
+    "url": "https://www.coupang.com/np/categories/519951",
+    "sales_sort_label": "판매량순",
+    "input_id": "sorter-SALES_COUNT",
+    "input_value": "saleCountDesc",
+    "default_sort": "쿠팡 랭킹순",
+    "default_value": "bestAsc",
+    "product_anchor_count": 0,
+    "sales_sort_activation_verified": false,
+    "limitation": "Read-only radio and label attempts did not change checked state or URL; mapping is observed DOM, successful sales-sorted results not verified."
+  },
+  "monthly_purchasers": {
+    "url": "https://www.coupang.com/vp/products/5532336625?categoryId=393660&itemId=8685540289&sourceType=CATEGORY&vendorItemId=75972634868",
+    "productId": "5532336625",
+    "itemId": "8685540289",
+    "vendorItemId": "75972634868",
+    "raw_text": "한 달간 2만명 이상 구매했어요",
+    "lower_bound": 20000,
+    "unit": "people",
+    "exact_units_sold": null,
+    "counting_methodology": "not verified",
+    "observed_price_krw": 2990,
+    "product_review_count": 55618
+  }
+}

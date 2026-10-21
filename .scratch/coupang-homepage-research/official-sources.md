@@ -1,0 +1,31 @@
+# Coupang official-source findings
+
+Checked 2026-10-12. Research only; no extension code modified. Exa via `mcporter` failed DNS `mcp.exa.ai`; used web search/open fallback. Public Coupang responses are indexed snapshots when direct requests are restricted; these establish available labels, not current live values or full algorithm internals.
+
+## Homepage advertising and ranking
+
+- [Coupang Ads legacy FAQ](https://ads.coupang.com/Faq.html), heading `광고는 어떻게 노출되나요?`: homepage advertising uses each customer's personalization data and Coupang recommendations. Search advertising matches keywords and considers bids. This proves homepage can contain personalized ads; it does not establish that all homepage products are ads, nor that they are best sellers.
+- [Current Coupang Ads FAQ](https://ads.coupang.com/faq): advertising appears in search and other visiting contexts; the advertising system determines placement. Ad-efficiency recommendations consider CTR/conversion. New/underexposed products can receive active exposure. Appearance alone therefore cannot verify sales volume or commercial success.
+- [Coupang search with ranking explanation](https://www.coupang.com/np/search?eventCategory=SRP&isPriceRange=false&listSize=36&page=1&q=%EB%B2%A0%EC%8A%A4%ED%8A%B8100&rating=0&rocketAll=false&sorter=scoreDesc): `쿠팡 랭킹순` combines purchase performance, customer evaluation, price/delivery competitiveness, and query relevance; other factors may change. Ads carry `AD` and a disclosure that advertisers receive priority sorting over ordinary products. The keyword `베스트100` here is merely search text, not a verified global bestseller page.
+
+## Public sales-order and demand evidence
+
+- [Enzyme category](https://www.coupang.com/np/categories/519951) and the search source above visibly offer `판매량순` (sort by sales), separately from `쿠팡 랭킹순`. The safe navigation instruction is open a relevant category/search then select `판매량순`. Sales-order is scoped to that category/query/filter, not a global rank or exact sales-unit count. No first-party definition of its aggregation period was obtained. Direct category fetch returned 403; indexed source contains the controls.
+- `sorter=saleCountDesc` appears in multiple third-party examples, but was not directly validated from first-party DOM in this subtask. Do not present a guessed parameter mapping as verified.
+- [500g one-pack sweet potato PDP](https://www.coupang.com/vp/products/5532336625?categoryId=393660&itemId=8685540289&sourceType=CATEGORY&vendorItemId=75972634868): indexed snapshot shows `한 달간 1만명 이상 구매했어요` = at least 10,000 people purchased during a month. This is a rounded lower-bound purchaser signal, not exact units. Store literal text, bound, unit `people`, time wording, option identifiers, timestamp and URL.
+- [Same product ID, three-pack option](https://www.coupang.com/vp/products/5532336625?campaignId=4552&categoryId=0&itemId=19223785117&sourceType=CAMPAIGN&vendorItemId=86340473309) shows 500+ people in an indexed snapshot. Different snapshots/options must not be collapsed as one product's exact volume. Exact counting methodology remains unknown.
+- [2026H1 award labels on search](https://www.coupang.com/np/search?component=221834&filterType=&q=%EC%9D%B4%EC%9C%A0%EC%8B%9D%EA%B8%B0&sourceType=cmgoms&subSourceType=cmgoms): `BEST AWARDS` tooltip identifies category, award type, aggregation window 2026-01-01 to 2026-05-21, and criteria. `베스트 셀링` uses revenue/sales; `리뷰 베스트` uses review count/rating. Capture type and period instead of treating every award as bestseller or current rank.
+- [Official 2025H1 award announcement](https://news.coupang.com/archives/54597/?print=pdf): awards evaluate actual purchases, revenue, sales, review count/rating; run twice yearly, with best-selling, new-product and review categories. Useful historical qualification, not live sales volume.
+- [Book bestseller announcement, March 2024](https://news.coupang.com/archives/37711/?print=print) describes ten books selected from the previous month's customer purchasing patterns. This proves a book-specific editorial bestseller feature existed; no currently live universal bestseller page was validated.
+
+## Seller data and real volumes
+
+- [WING overview](https://marketplace.coupang.com/wing): seller management includes daily/monthly revenue, settlements/fees and statistics. These concern the seller's business.
+- [Business Insights guide](https://marketplace.coupang.com/information-center/marketplace3p-business-insights): seller-only WING subscription with search impressions/CTR/conversion, organic/ad/other inflow, funnel, popular competitor products/brands/search terms; Top 50 competitors and up to 360 days of category data. This is a stronger official sourcing source than homepage position. Availability varies by plan/account; actual competitor sales-unit fields were not verified.
+- [Open API catalogue](https://developers.coupang.com/ko/api): HTTPS JSON, HMAC-SHA256; seller product/order/revenue endpoints. No universal competitor-volume endpoint located in this catalogue.
+- [Ordersheet query](https://developers.coupang.com/ko/api/shipments/po-list-query-paging-by-day): vendor-scoped seller ID, date range, order statuses and option IDs. `shippingCount` is ordered item quantity; cancellation fields must be subtracted for eligible shipment quantity. Requires the seller's authorized API access, not public competitor browsing.
+- [Revenue-history query](https://developers.coupang.com/ko/api/settlement/sales-detail-query): vendor ID, recognition-date range, sales/refunds. Recognition follows purchase confirmation or delivery + seven days. This supports own-business actual revenue analysis; order date and revenue-recognition date differ.
+
+## Consequence for product discovery
+
+Homepage is a valid candidate-discovery surface when product cards are rendered. Record section, visible ad disclosure (true or unknown), URL/option, displayed position, price/reviews and observation time. Do not map homepage position to BSR. Cross-check candidates with category/query sales order, PDP monthly purchaser labels, scoped awards and seller analytics. Profit, supplier cost, fees and competition still determine whether a candidate merits a test; exposure cannot prove a winning product.

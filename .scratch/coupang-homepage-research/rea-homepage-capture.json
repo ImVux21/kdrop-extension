@@ -1,0 +1,339 @@
+{
+  "evidence_id": "ev_8028767b5992e474924d7e5ceb62f7eba06cc5a785446e7d22a7f254d9598b1a",
+  "subject": null,
+  "provider": {
+    "id": "rea-playwright-browser-scenario",
+    "name": "REA Playwright browser scenario capture provider",
+    "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.browser-scenario-capture",
+  "operation": "capture_browser_scenario",
+  "parameters": {
+    "browser": {
+      "mode": "launch",
+      "executable_path": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      "headless": true
+    },
+    "start_url": {
+      "url": "https://www.coupang.com/",
+      "query": []
+    },
+    "environment": {
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "device_scale_factor": 1
+      },
+      "locale": "ko-KR",
+      "timezone": "Asia/Seoul",
+      "color_scheme": "light",
+      "reduced_motion": "reduce",
+      "service_workers": "block"
+    },
+    "actions": [
+      {
+        "step_id": "settle_homepage",
+        "action": "wait_for_timeout",
+        "duration_ms": 4000
+      }
+    ],
+    "storage": {
+      "cookies": [],
+      "local_storage": [],
+      "session_storage": []
+    },
+    "secrets": [],
+    "capture": {
+      "after_each_step": [],
+      "at_end": [
+        "dom",
+        "accessibility",
+        "url"
+      ],
+      "events": [
+        "network",
+        "page-errors"
+      ],
+      "network": {
+        "request_body": false,
+        "response_body": true,
+        "header_values": false
+      }
+    },
+    "scenario_sha256": "8da3609b65e8fd17a7025419da4fbac4c79af0b9ab6e6de14f39aeb24ff8c463"
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "browser": {
+      "mode": "launch",
+      "process_ownership": "provider-owned",
+      "cleanup": "terminated-owned-process",
+      "product": "Chromium",
+      "version": "154.0.8037.99"
+    },
+    "scenario": {
+      "start_origin": "https://www.coupang.com",
+      "action_count": 1,
+      "secret_references": [],
+      "network_content": {
+        "request_body": false,
+        "response_body": true,
+        "header_values": false
+      }
+    },
+    "duration_ms": 4957,
+    "steps": [
+      {
+        "step_index": 0,
+        "step_id": "scenario_start",
+        "action": "goto_start",
+        "elapsed_ms": 742,
+        "before_url": {
+          "url": "about:blank",
+          "origin": null,
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "after_url": {
+          "url": "https://www.coupang.com/",
+          "origin": "https://www.coupang.com",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "event_sequence_start": 1,
+        "event_sequence_end": 3,
+        "artifacts": {
+          "screenshot": {
+            "state": "not_requested"
+          },
+          "dom": {
+            "state": "not_requested"
+          },
+          "accessibility": {
+            "state": "not_requested"
+          },
+          "url": {
+            "state": "not_requested"
+          },
+          "history": {
+            "state": "not_requested"
+          },
+          "storage": {
+            "state": "not_requested"
+          }
+        },
+        "completeness": {
+          "status": "complete",
+          "equality_eligible": true,
+          "missing_sections": [],
+          "truncated_sections": []
+        },
+        "status": "completed",
+        "error": null
+      },
+      {
+        "step_index": 1,
+        "step_id": "settle_homepage",
+        "action": "wait_for_timeout",
+        "elapsed_ms": 4048,
+        "before_url": {
+          "url": "https://www.coupang.com/",
+          "origin": "https://www.coupang.com",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "after_url": {
+          "url": "https://www.coupang.com/",
+          "origin": "https://www.coupang.com",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "event_sequence_start": 4,
+        "event_sequence_end": 4,
+        "artifacts": {
+          "screenshot": {
+            "state": "not_requested"
+          },
+          "dom": {
+            "state": "captured",
+            "value": {
+              "sha256": "6b40903f024a282aa3f4a9990a3b2bb9005514e76eaf0437b12ea0d28825e68d",
+              "bytes": 293,
+              "text": "<html><head>\n<title>Access Denied</title>\n</head><body>\n<h1>Access Denied</h1>\n \nYou don't have permission to access \"http://www.coupang.com/\" on this server.<p>\nReference #18.9d0aab71.1791814029.c5cd4058\n</p><p>https://errors.edgesuite.net/18.9d0aab71.1791814029.c5cd4058</p>\n\n\n</body></html>"
+            }
+          },
+          "accessibility": {
+            "state": "captured",
+            "value": {
+              "sha256": "f396d72d27b8ee1bb40f5260c5a871b9d46bf6b966686c6221dde2dbe1a22811",
+              "bytes": 273,
+              "text": "- document:\n  - heading \"Access Denied\" [level=1]\n  - text: You don't have permission to access \"http://www.coupang.com/\" on this server.\n  - paragraph: \"Reference #18.9d0aab71.1791814029.c5cd4058\"\n  - paragraph: https://errors.edgesuite.net/18.9d0aab71.1791814029.c5cd4058"
+            }
+          },
+          "url": {
+            "state": "captured",
+            "value": {
+              "url": "https://www.coupang.com/",
+              "origin": "https://www.coupang.com",
+              "query_parameter_names": [],
+              "redacted": false
+            }
+          },
+          "history": {
+            "state": "not_requested"
+          },
+          "storage": {
+            "state": "not_requested"
+          }
+        },
+        "completeness": {
+          "status": "complete",
+          "equality_eligible": true,
+          "missing_sections": [],
+          "truncated_sections": []
+        },
+        "status": "completed",
+        "error": null
+      }
+    ],
+    "events": {
+      "retained": 4,
+      "dropped": 0,
+      "items": [
+        {
+          "sequence": 1,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "method": "GET",
+          "url": {
+            "url": "https://www.coupang.com/",
+            "origin": "https://www.coupang.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "accept-language",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "upgrade-insecure-requests",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null
+        },
+        {
+          "sequence": 2,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "method": "GET",
+          "url": {
+            "url": "https://www.coupang.com/",
+            "origin": "https://www.coupang.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "content-length",
+            "content-type",
+            "date",
+            "expires",
+            "mime-version",
+            "server",
+            "strict-transport-security",
+            "x-reference-error"
+          ],
+          "kind": "response",
+          "status": 403,
+          "failure": null
+        },
+        {
+          "sequence": 3,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "method": "GET",
+          "url": {
+            "url": "https://www.coupang.com/",
+            "origin": "https://www.coupang.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "accept-language",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "upgrade-insecure-requests",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null
+        },
+        {
+          "sequence": 4,
+          "step_index": 1,
+          "kind": "network-content",
+          "transaction_id": "request-1",
+          "source_event_sequence": 2,
+          "phase": "response",
+          "headers": {
+            "state": "not_requested"
+          },
+          "body": {
+            "state": "captured",
+            "representation": "browser-decoded-response-bytes",
+            "encoding": "base64",
+            "content": "PEhUTUw+PEhFQUQ+CjxUSVRMRT5BY2Nlc3MgRGVuaWVkPC9USVRMRT4KPC9IRUFEPjxCT0RZPgo8SDE+QWNjZXNzIERlbmllZDwvSDE+CiAKWW91IGRvbid0IGhhdmUgcGVybWlzc2lvbiB0byBhY2Nlc3MgImh0dHAmIzU4OyYjNDc7JiM0Nzt3d3cmIzQ2O2NvdXBhbmcmIzQ2O2NvbSYjNDc7IiBvbiB0aGlzIHNlcnZlci48UD4KUmVmZXJlbmNlJiMzMjsmIzM1OzE4JiM0Njs5ZDBhYWI3MSYjNDY7MTc5MTgxNDAyOSYjNDY7YzVjZDQwNTgKPFA+aHR0cHMmIzU4OyYjNDc7JiM0NztlcnJvcnMmIzQ2O2VkZ2VzdWl0ZSYjNDY7bmV0JiM0NzsxOCYjNDY7OWQwYWFiNzEmIzQ2OzE3OTE4MTQwMjkmIzQ2O2M1Y2Q0MDU4PC9QPgo8L0JPRFk+CjwvSFRNTD4K",
+            "bytes": 369,
+            "sha256": "1c16486ee9d5d43389940ad1b344abe6ccef8c89e82e3b6a8e9f7002dd820c59",
+            "media_type": "text/html",
+            "redacted": false
+          }
+        }
+      ]
+    },
+    "completeness": {
+      "status": "complete",
+      "equality_eligible": true,
+      "missing_sections": [],
+      "truncated_sections": []
+    },
+    "limitations": [
+      "Event sequence records provider receipt order; simultaneous browser causality is not inferred.",
+      "Network content is retained only when selected; response bytes are browser-decoded, not compressed wire bytes.",
+      "Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
+      "Network content reads settle within 5 seconds each and never wait for unfinished responses or refetch them.",
+      "Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+      "Storage values are hashed only after declared-secret redaction."
+    ]
+  },
+  "confidence": "observed",
+  "authority": "controlled-replay",
+  "environment": {
+    "id": "Chromium@154.0.8037.99",
+    "platform": "unknown",
+    "architecture": "unknown",
+    "isolation": "process"
+  },
+  "limitations": [
+    "Artifact identity is unavailable for this observation.",
+    "Event sequence records provider receipt order; simultaneous browser causality is not inferred.",
+    "Network content is retained only when selected; response bytes are browser-decoded, not compressed wire bytes.",
+    "Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
+    "Network content reads settle within 5 seconds each and never wait for unfinished responses or refetch them.",
+    "Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+    "Storage values are hashed only after declared-secret redaction.",
+    "Browser host platform and architecture were not observed."
+  ],
+  "locations": [],
+  "evidence_links": []
+}

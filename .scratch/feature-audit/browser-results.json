@@ -1,0 +1,299 @@
+[
+  {
+    "name": "Real extension dashboard initializes",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Dashboard displays all seed records",
+    "pass": true,
+    "expected": 527,
+    "actual": 527
+  },
+  {
+    "name": "Wing filter changes results",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Filter reset restores results",
+    "pass": true,
+    "expected": 20,
+    "actual": 20
+  },
+  {
+    "name": "Search empty state",
+    "pass": true,
+    "expected": 0,
+    "actual": 0
+  },
+  {
+    "name": "Price sorting ascending",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Watchlist toggle persists",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Watchlist survives reload",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Remove from watchlist",
+    "pass": true,
+    "expected": 0,
+    "actual": 0
+  },
+  {
+    "name": "COGS edit survives actual chrome.storage reload",
+    "pass": true,
+    "expected": 42,
+    "actual": 42
+  },
+  {
+    "name": "Inspector opens",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Evidence modal opens",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Simulator opens",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Responsive dashboard width 1280",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Responsive dashboard width 768",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Responsive dashboard width 390",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Responsive dashboard width 320",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Listing extraction ID/name/price/reviews",
+    "pass": true,
+    "expected": {
+      "id": "123456789",
+      "title": "수납함",
+      "price": 110000,
+      "reviews": 754
+    },
+    "actual": {
+      "id": "123456789",
+      "title": "수납함",
+      "price": 110000,
+      "reviews": 754
+    }
+  },
+  {
+    "name": "Unknown Rocket badge stays unknown",
+    "pass": true,
+    "expected": null,
+    "actual": null
+  },
+  {
+    "name": "Star width 96% extracts rating 4.8",
+    "pass": true,
+    "expected": 4.8,
+    "actual": 4.8
+  },
+  {
+    "name": "Listing vendorItemId from product URL",
+    "pass": true,
+    "expected": "999",
+    "actual": "999"
+  },
+  {
+    "name": "Floating listing scan reaches actual extension storage",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Search rank remains unknown in actual dashboard",
+    "pass": true,
+    "expected": null,
+    "actual": null
+  },
+  {
+    "name": "Sidepanel opens and loads storage",
+    "pass": true,
+    "expected": 21,
+    "actual": 21
+  },
+  {
+    "name": "Sidepanel search empty state",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Sidepanel rate changes displayed profit",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Detail review count uses product reviews, not generic .count",
+    "pass": true,
+    "expected": 754,
+    "actual": 754
+  },
+  {
+    "name": "Unrelated detail discount badge is not Rocket",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Detail vendorItemId extracts URL offer",
+    "pass": true,
+    "expected": "999",
+    "actual": "999"
+  },
+  {
+    "name": "Detail never invents BSR rank",
+    "pass": true,
+    "expected": null,
+    "actual": null
+  },
+  {
+    "name": "Sidepanel active-tab scan reports successful import",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Widget uses saved ready dossier",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Simulator loads saved rate/returns/volume/settlement",
+    "pass": true,
+    "expected": {
+      "rate": "250",
+      "returns": "10",
+      "orders": "3",
+      "days": "7"
+    },
+    "actual": {
+      "rate": "250",
+      "returns": "10",
+      "orders": "3",
+      "days": "7"
+    }
+  },
+  {
+    "name": "Simulator equals saved baseline profit",
+    "pass": true,
+    "expected": "37,000 ₩",
+    "actual": "37,000 ₩"
+  },
+  {
+    "name": "Temporary simulation does not alter storage",
+    "pass": true,
+    "expected": 110000,
+    "actual": 110000
+  },
+  {
+    "name": "Save baseline action persists",
+    "pass": true,
+    "expected": 120000,
+    "actual": 120000
+  },
+  {
+    "name": "Inspector refreshes after baseline edit",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Blank supplier cost remains unknown",
+    "pass": true,
+    "expected": null,
+    "actual": null
+  },
+  {
+    "name": "UI cannot mark unsupported evidence dossier ready",
+    "pass": true,
+    "expected": "needs_verification",
+    "actual": "needs_verification"
+  },
+  {
+    "name": "Backup export real UI includes complete schema",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Import file real UI saves product",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Actual MV3 extension has no runtime page errors",
+    "pass": true,
+    "expected": [],
+    "actual": []
+  },
+  {
+    "name": "Real injected content has no runtime page errors",
+    "pass": true,
+    "expected": [],
+    "actual": []
+  },
+  {
+    "name": "Dialogs during audit",
+    "detail": [
+      "Đã quét và cập nhật thành công 1 sản phẩm!",
+      "✓ Đã lưu các tham số này thành kịch bản cơ sở cho sản phẩm \"수납함\"!",
+      "✓ Đã lưu hồ sơ bằng chứng thành công!",
+      "✓ Đã lưu hồ sơ bằng chứng thành công!",
+      "✓ Đã nạp thành công 1 sản phẩm vào K-Drop Studio!"
+    ]
+  },
+  {
+    "name": "Live Coupang supplementary check",
+    "detail": {
+      "status": 403,
+      "title": "Access Denied",
+      "products": 0,
+      "body": "Access Denied\nYou don't have permission to access \"http://www.coupang.com/np/search?\" on this server.\n\nReference #18.79e6ab71.1791797399.1ff5a9e7\n\nhttps://errors.edgesuite.net/18.79e6ab71.1791797399.1ff5a9e7\n\n📥 Nạp Coupang Vào K-Drop Studio\n⚡ Mở K-Drop"
+    }
+  }
+]

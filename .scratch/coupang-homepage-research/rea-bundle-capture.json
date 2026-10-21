@@ -1,0 +1,327 @@
+{
+  "evidence_id": "ev_3ef955c8b9ed35c4da6794caba35ec20ca5ee480f607e3c9797df1c95ae310c4",
+  "subject": null,
+  "provider": {
+    "id": "rea-playwright-browser-scenario",
+    "name": "REA Playwright browser scenario capture provider",
+    "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.browser-scenario-capture",
+  "operation": "capture_browser_scenario",
+  "parameters": {
+    "browser": {
+      "mode": "launch",
+      "executable_path": "C:/Program Files/Google/Chrome/Application/chrome.exe",
+      "headless": true
+    },
+    "start_url": {
+      "url": "https://assets.coupangcdn.com/front/front-web-next/_next/static/chunks/app/gw/page-0c3b5053b7332310.js",
+      "query": []
+    },
+    "environment": {
+      "viewport": {
+        "width": 1280,
+        "height": 720,
+        "device_scale_factor": 1
+      },
+      "locale": "en-US",
+      "timezone": "UTC",
+      "color_scheme": "light",
+      "reduced_motion": "reduce",
+      "service_workers": "block"
+    },
+    "actions": [
+      {
+        "step_id": "retain_bundle",
+        "action": "wait_for_timeout",
+        "duration_ms": 100
+      }
+    ],
+    "storage": {
+      "cookies": [],
+      "local_storage": [],
+      "session_storage": []
+    },
+    "secrets": [],
+    "capture": {
+      "after_each_step": [],
+      "at_end": [
+        "url"
+      ],
+      "events": [
+        "network"
+      ],
+      "network": {
+        "request_body": false,
+        "response_body": true,
+        "header_values": false
+      }
+    },
+    "scenario_sha256": "e503871a0608aaa2b6ee569ddeac2db8ac3588e91604e7538b00a6157ad8b9f0"
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "browser": {
+      "mode": "launch",
+      "process_ownership": "provider-owned",
+      "cleanup": "terminated-owned-process",
+      "product": "Chromium",
+      "version": "154.0.8037.99"
+    },
+    "scenario": {
+      "start_origin": "https://assets.coupangcdn.com",
+      "action_count": 1,
+      "secret_references": [],
+      "network_content": {
+        "request_body": false,
+        "response_body": true,
+        "header_values": false
+      }
+    },
+    "duration_ms": 899,
+    "steps": [
+      {
+        "step_index": 0,
+        "step_id": "scenario_start",
+        "action": "goto_start",
+        "elapsed_ms": 622,
+        "before_url": {
+          "url": "about:blank",
+          "origin": null,
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "after_url": {
+          "url": "https://assets.coupangcdn.com/front/front-web-next/_next/static/chunks/app/gw/page-0c3b5053b7332310.js",
+          "origin": "https://assets.coupangcdn.com",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "event_sequence_start": 1,
+        "event_sequence_end": 3,
+        "artifacts": {
+          "screenshot": {
+            "state": "not_requested"
+          },
+          "dom": {
+            "state": "not_requested"
+          },
+          "accessibility": {
+            "state": "not_requested"
+          },
+          "url": {
+            "state": "not_requested"
+          },
+          "history": {
+            "state": "not_requested"
+          },
+          "storage": {
+            "state": "not_requested"
+          }
+        },
+        "completeness": {
+          "status": "complete",
+          "equality_eligible": true,
+          "missing_sections": [],
+          "truncated_sections": []
+        },
+        "status": "completed",
+        "error": null
+      },
+      {
+        "step_index": 1,
+        "step_id": "retain_bundle",
+        "action": "wait_for_timeout",
+        "elapsed_ms": 103,
+        "before_url": {
+          "url": "https://assets.coupangcdn.com/front/front-web-next/_next/static/chunks/app/gw/page-0c3b5053b7332310.js",
+          "origin": "https://assets.coupangcdn.com",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "after_url": {
+          "url": "https://assets.coupangcdn.com/front/front-web-next/_next/static/chunks/app/gw/page-0c3b5053b7332310.js",
+          "origin": "https://assets.coupangcdn.com",
+          "query_parameter_names": [],
+          "redacted": false
+        },
+        "event_sequence_start": 4,
+        "event_sequence_end": 4,
+        "artifacts": {
+          "screenshot": {
+            "state": "not_requested"
+          },
+          "dom": {
+            "state": "not_requested"
+          },
+          "accessibility": {
+            "state": "not_requested"
+          },
+          "url": {
+            "state": "captured",
+            "value": {
+              "url": "https://assets.coupangcdn.com/front/front-web-next/_next/static/chunks/app/gw/page-0c3b5053b7332310.js",
+              "origin": "https://assets.coupangcdn.com",
+              "query_parameter_names": [],
+              "redacted": false
+            }
+          },
+          "history": {
+            "state": "not_requested"
+          },
+          "storage": {
+            "state": "not_requested"
+          }
+        },
+        "completeness": {
+          "status": "complete",
+          "equality_eligible": true,
+          "missing_sections": [],
+          "truncated_sections": []
+        },
+        "status": "completed",
+        "error": null
+      }
+    ],
+    "events": {
+      "retained": 4,
+      "dropped": 0,
+      "items": [
+        {
+          "sequence": 1,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "method": "GET",
+          "url": {
+            "url": "https://assets.coupangcdn.com/front/front-web-next/_next/static/chunks/app/gw/page-0c3b5053b7332310.js",
+            "origin": "https://assets.coupangcdn.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "accept-language",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "upgrade-insecure-requests",
+            "user-agent"
+          ],
+          "kind": "request",
+          "status": null,
+          "failure": null
+        },
+        {
+          "sequence": 2,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "method": "GET",
+          "url": {
+            "url": "https://assets.coupangcdn.com/front/front-web-next/_next/static/chunks/app/gw/page-0c3b5053b7332310.js",
+            "origin": "https://assets.coupangcdn.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "access-control-allow-origin",
+            "cache-control",
+            "content-length",
+            "content-type",
+            "date",
+            "expires",
+            "mime-version",
+            "server",
+            "strict-transport-security"
+          ],
+          "kind": "response",
+          "status": 403,
+          "failure": null
+        },
+        {
+          "sequence": 3,
+          "step_index": 0,
+          "transaction_id": "request-1",
+          "redirected_from_transaction_id": null,
+          "method": "GET",
+          "url": {
+            "url": "https://assets.coupangcdn.com/front/front-web-next/_next/static/chunks/app/gw/page-0c3b5053b7332310.js",
+            "origin": "https://assets.coupangcdn.com",
+            "query_parameter_names": [],
+            "redacted": false
+          },
+          "resource_type": "document",
+          "header_names": [
+            "accept-language",
+            "sec-ch-ua",
+            "sec-ch-ua-mobile",
+            "sec-ch-ua-platform",
+            "upgrade-insecure-requests",
+            "user-agent"
+          ],
+          "kind": "request-finished",
+          "status": null,
+          "failure": null
+        },
+        {
+          "sequence": 4,
+          "step_index": 1,
+          "kind": "network-content",
+          "transaction_id": "request-1",
+          "source_event_sequence": 2,
+          "phase": "response",
+          "headers": {
+            "state": "not_requested"
+          },
+          "body": {
+            "state": "captured",
+            "representation": "browser-decoded-response-bytes",
+            "encoding": "base64",
+            "content": "PEhUTUw+PEhFQUQ+CjxUSVRMRT5BY2Nlc3MgRGVuaWVkPC9USVRMRT4KPC9IRUFEPjxCT0RZPgo8SDE+QWNjZXNzIERlbmllZDwvSDE+CiAKWW91IGRvbid0IGhhdmUgcGVybWlzc2lvbiB0byBhY2Nlc3MgImh0dHAmIzU4OyYjNDc7JiM0Nzthc3NldHMmIzQ2O2NvdXBhbmdjZG4mIzQ2O2NvbSYjNDc7ZnJvbnQmIzQ3O2Zyb250JiM0NTt3ZWImIzQ1O25leHQmIzQ3OyYjOTU7bmV4dCYjNDc7c3RhdGljJiM0NztjaHVua3MmIzQ3O2FwcCYjNDc7Z3cmIzQ3O3BhZ2UmIzQ1OzBjM2I1MDUzYjczMzIzMTAmIzQ2O2pzIiBvbiB0aGlzIHNlcnZlci48UD4KUmVmZXJlbmNlJiMzMjsmIzM1OzE4JiM0NjtlNjBhYWI3MSYjNDY7MTc5MTgxNDI1MiYjNDY7NDMzNjBkMgo8UD5odHRwcyYjNTg7JiM0NzsmIzQ3O2Vycm9ycyYjNDY7ZWRnZXN1aXRlJiM0NjtuZXQmIzQ3OzE4JiM0NjtlNjBhYWI3MSYjNDY7MTc5MTgxNDI1MiYjNDY7NDMzNjBkMjwvUD4KPC9CT0RZPgo8L0hUTUw+Cg==",
+            "bytes": 493,
+            "sha256": "00a90854c697f7fe53fde30b5e8dfb44e5756bb1a66680b7e56a5fe730b1ad16",
+            "media_type": "text/html",
+            "redacted": false
+          }
+        }
+      ]
+    },
+    "completeness": {
+      "status": "complete",
+      "equality_eligible": true,
+      "missing_sections": [],
+      "truncated_sections": []
+    },
+    "limitations": [
+      "Event sequence records provider receipt order; simultaneous browser causality is not inferred.",
+      "Network content is retained only when selected; response bytes are browser-decoded, not compressed wire bytes.",
+      "Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
+      "Network content reads settle within 5 seconds each and never wait for unfinished responses or refetch them.",
+      "Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+      "Storage values are hashed only after declared-secret redaction."
+    ]
+  },
+  "confidence": "observed",
+  "authority": "controlled-replay",
+  "environment": {
+    "id": "Chromium@154.0.8037.99",
+    "platform": "unknown",
+    "architecture": "unknown",
+    "isolation": "process"
+  },
+  "limitations": [
+    "Artifact identity is unavailable for this observation.",
+    "Event sequence records provider receipt order; simultaneous browser causality is not inferred.",
+    "Network content is retained only when selected; response bytes are browser-decoded, not compressed wire bytes.",
+    "Request bytes are limited to what Playwright exposes; not_exposed does not establish body absence or multipart file coverage.",
+    "Network content reads settle within 5 seconds each and never wait for unfinished responses or refetch them.",
+    "Playwright scenario events do not expose request initiator stacks; receipt order does not prove causality.",
+    "Storage values are hashed only after declared-secret redaction.",
+    "Browser host platform and architecture were not observed."
+  ],
+  "locations": [],
+  "evidence_links": []
+}

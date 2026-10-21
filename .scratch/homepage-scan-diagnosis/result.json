@@ -1,0 +1,28 @@
+{
+  "observations": [
+    {
+      "run": 1,
+      "url": "https://www.coupang.com/",
+      "buttonVisible": true,
+      "alert": "Không tìm thấy danh sách sản phẩm trên trang này!",
+      "storedCount": 0
+    },
+    {
+      "run": 2,
+      "url": "https://www.coupang.com/",
+      "buttonVisible": true,
+      "alert": "Không tìm thấy danh sách sản phẩm trên trang này!",
+      "storedCount": 0
+    }
+  ],
+  "control": {
+    "storedCount": 1
+  },
+  "modern": {
+    "visibleProductLinks": 1,
+    "legacyCards": 0,
+    "alert": "Không tìm thấy danh sách sản phẩm trên trang này!",
+    "storedCount": 1
+  },
+  "probes": []
+}

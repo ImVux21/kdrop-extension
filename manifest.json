@@ -1,0 +1,68 @@
+{
+  "manifest_version": 3,
+  "name": "K-Drop Studio - Coupang 1688 Intelligence",
+  "version": "1.0.1",
+  "description": "Nghiên cứu thị trường Coupang BSR, soi thuật toán Buy Box Item Winner & tìm xưởng 1688 tối ưu Unit Economics",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_title": "Mở K-Drop Studio",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "permissions": [
+    "storage",
+    "unlimitedStorage",
+    "sidePanel",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://*.coupang.com/*",
+    "*://*.1688.com/*"
+  ],
+  "background": {
+    "service_worker": "background/service_worker.js"
+  },
+  "side_panel": {
+    "default_path": "ui/sidepanel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*.coupang.com/*"
+      ],
+      "js": [
+        "core/kcRules.js",
+        "core/materialEngine.js",
+        "core/feeCalculator.js",
+        "core/winAlgorithm.js",
+        "storage/storageRepository.js",
+        "content/coupang_extractor.js",
+        "content/inpage_badge.js"
+      ],
+      "css": [
+        "content/inpage_badge.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "data/initial_data.json",
+        "ui/*",
+        "icons/*"
+      ],
+      "matches": [
+        "*://*.coupang.com/*"
+      ]
+    }
+  ]
+}

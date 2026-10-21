@@ -1,0 +1,306 @@
+[
+  {
+    "name": "Lazy detail thumbnail uses product image",
+    "pass": true,
+    "expected": "https://example.com/real-product.jpg",
+    "actual": "https://example.com/real-product.jpg"
+  },
+  {
+    "name": "Scanning detail page prefers main product over recommendations",
+    "pass": true,
+    "expected": [
+      "111111111"
+    ],
+    "actual": [
+      "111111111"
+    ]
+  },
+  {
+    "name": "Product widget save reaches real storage",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Dashboard unknown rating is shown as unknown",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Sidepanel Dashboard button opens actual dashboard",
+    "pass": true,
+    "expected": "chrome-extension://pojonleikclikkmkfdmgljjpgnebcbai/ui/dashboard.html",
+    "actual": "chrome-extension://pojonleikclikkmkfdmgljjpgnebcbai/ui/dashboard.html"
+  },
+  {
+    "name": "Toolbar action is configured to open sidepanel",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Import modal focuses first input",
+    "pass": true,
+    "expected": "importNicheName",
+    "actual": "importNicheName"
+  },
+  {
+    "name": "Import Escape restores focus",
+    "pass": true,
+    "expected": "btnOpenImportModal",
+    "actual": "btnOpenImportModal"
+  },
+  {
+    "name": "Search keyboard shortcut",
+    "pass": true,
+    "expected": "searchInput",
+    "actual": "searchInput"
+  },
+  {
+    "name": "Widget appears when product DOM arrives after content initialization",
+    "pass": true,
+    "expected": true,
+    "actual": true
+  },
+  {
+    "name": "Manual extraction handles late rendered product",
+    "pass": true,
+    "expected": "333333333",
+    "actual": "333333333"
+  },
+  {
+    "name": "Individual filter elig READY_FOR_TRIAL",
+    "pass": true,
+    "expected": [
+      "A"
+    ],
+    "actual": [
+      "A"
+    ]
+  },
+  {
+    "name": "Individual filter elig NEEDS_VERIFICATION",
+    "pass": true,
+    "expected": [
+      "B",
+      "C"
+    ],
+    "actual": [
+      "B",
+      "C"
+    ]
+  },
+  {
+    "name": "Individual filter elig NOT_ELIGIBLE",
+    "pass": true,
+    "expected": [
+      "D"
+    ],
+    "actual": [
+      "D"
+    ]
+  },
+  {
+    "name": "Individual filter buybox WING_ONLY",
+    "pass": true,
+    "expected": [
+      "A",
+      "B"
+    ],
+    "actual": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "name": "Individual filter buybox ROCKET_ONLY",
+    "pass": true,
+    "expected": [
+      "C",
+      "D"
+    ],
+    "actual": [
+      "C",
+      "D"
+    ]
+  },
+  {
+    "name": "Individual filter tier DIAMOND",
+    "pass": true,
+    "expected": [
+      "A"
+    ],
+    "actual": [
+      "A"
+    ]
+  },
+  {
+    "name": "Individual filter tier GOLD",
+    "pass": true,
+    "expected": [
+      "B"
+    ],
+    "actual": [
+      "B"
+    ]
+  },
+  {
+    "name": "Individual filter price UNDER_50K",
+    "pass": true,
+    "expected": [
+      "D"
+    ],
+    "actual": [
+      "D"
+    ]
+  },
+  {
+    "name": "Individual filter price 50K_TO_100K",
+    "pass": true,
+    "expected": [
+      "B"
+    ],
+    "actual": [
+      "B"
+    ]
+  },
+  {
+    "name": "Individual filter price OVER_100K",
+    "pass": true,
+    "expected": [
+      "A",
+      "C"
+    ],
+    "actual": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "name": "Niche dropdown filter",
+    "pass": true,
+    "expected": [
+      "A",
+      "C"
+    ],
+    "actual": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "name": "KC signal filter",
+    "pass": true,
+    "expected": [
+      "A",
+      "B"
+    ],
+    "actual": [
+      "A",
+      "B"
+    ]
+  },
+  {
+    "name": "Material chip filter",
+    "pass": true,
+    "expected": [
+      "A",
+      "C"
+    ],
+    "actual": [
+      "A",
+      "C"
+    ]
+  },
+  {
+    "name": "Combined Wing and needs-verification filters",
+    "pass": true,
+    "expected": [
+      "B"
+    ],
+    "actual": [
+      "B"
+    ]
+  },
+  {
+    "name": "Sort margin_desc",
+    "pass": true,
+    "expected": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "actual": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ]
+  },
+  {
+    "name": "Sort profit_desc",
+    "pass": true,
+    "expected": [
+      "A",
+      "C",
+      "B",
+      "D"
+    ],
+    "actual": [
+      "A",
+      "C",
+      "B",
+      "D"
+    ]
+  },
+  {
+    "name": "Sort price_desc",
+    "pass": true,
+    "expected": [
+      "C",
+      "A",
+      "B",
+      "D"
+    ],
+    "actual": [
+      "C",
+      "A",
+      "B",
+      "D"
+    ]
+  },
+  {
+    "name": "Sort price_asc",
+    "pass": true,
+    "expected": [
+      "D",
+      "B",
+      "A",
+      "C"
+    ],
+    "actual": [
+      "D",
+      "B",
+      "A",
+      "C"
+    ]
+  },
+  {
+    "name": "Sort cogs_asc",
+    "pass": true,
+    "expected": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ],
+    "actual": [
+      "A",
+      "B",
+      "C",
+      "D"
+    ]
+  }
+]

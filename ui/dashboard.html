@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Drop Studio - Coupang 1688 Intelligence (Extension Dashboard)</title>
+  <link rel="stylesheet" href="css/tailwind.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="dashboard-app bg-slate-50 text-slate-800 text-xs font-sans antialiased min-h-screen">
+
+  <header class="app-header">
+    <div class="app-shell header-top">
+      <a class="brand" href="dashboard.html" aria-label="K-Drop Studio, trang chủ">
+        <span class="brand-mark">K<span></span></span>
+        <span><strong>K-Drop Studio</strong><small>Coupang & 1688 Intelligence</small></span>
+        <span class="version-badge">v1.0</span>
+      </a>
+      <div class="header-actions">
+        <button id="btnExportJson" class="button button-secondary" aria-label="Xuất dữ liệu JSON"><i data-lucide="download"></i><span>Xuất dữ liệu</span></button>
+        <button id="btnOpenImportModal" class="button button-primary"><i data-lucide="plus"></i><span>Nạp dữ liệu</span></button>
+      </div>
+    </div>
+    <nav class="app-shell app-nav" aria-label="Điều hướng chính">
+      <button class="nav-tab active" data-tab="tabRadar" aria-current="page"><i data-lucide="radar"></i>Market Radar</button>
+      <button class="nav-tab" data-tab="tabInspector"><i data-lucide="scan-search"></i>Item Winner & Tiêu chí</button>
+      <button class="nav-tab" data-tab="tabCalculator"><i data-lucide="calculator"></i>Unit Economics</button>
+      <button class="nav-tab" data-tab="tabWatchlist"><i data-lucide="bookmark"></i>Watchlist <span id="statWatchlistCount" class="nav-count">0</span></button>
+    </nav>
+  </header>
+
+  <main class="app-shell app-main">
+    <!-- TAB 1: MARKET RADAR -->
+    <section id="tabRadar" class="tab-pane radar-pane">
+      <div class="page-heading">
+        <div>
+          <h1>Market Radar</h1>
+          <p>Sàng lọc cơ hội 1688 → Coupang theo dữ liệu và bằng chứng sản phẩm.</p>
+        </div>
+        <span class="data-location"><i data-lucide="database"></i>Dữ liệu lưu trên thiết bị</span>
+      </div>
+
+      <!-- METRICS STRIP: ĐÁNH GIÁ ĐIỀU KIỆN THỬ BÁN CHÍNH XÁC -->
+      <div class="metrics-strip" aria-label="Tổng quan điều kiện thử bán">
+        <div class="metric">
+          <span class="metric-icon"><i data-lucide="package"></i></span>
+          <div><span class="metric-label">Tổng sản phẩm</span><strong id="statTotalProducts">0</strong></div>
+        </div>
+        <div class="metric" style="border-left: 3px solid #10b981;">
+          <span class="metric-icon" style="background:#ecfdf5; color:#059669;"><i data-lucide="check-circle-2"></i></span>
+          <div><span class="metric-label">Đủ điều kiện thử bán</span><strong id="statReadyForTrial" style="color:#059669;">0</strong></div>
+        </div>
+        <div class="metric" style="border-left: 3px solid #f59e0b;">
+          <span class="metric-icon" style="background:#fffbeb; color:#d97706;"><i data-lucide="alert-circle"></i></span>
+          <div><span class="metric-label">Cần xác minh bằng chứng</span><strong id="statNeedsVerification" style="color:#d97706;">0</strong></div>
+        </div>
+        <div class="metric" style="border-left: 3px solid #f43f5e;">
+          <span class="metric-icon" style="background:#fff1f2; color:#e11d48;"><i data-lucide="x-circle"></i></span>
+          <div><span class="metric-label">Chưa đạt điều kiện</span><strong id="statNotEligible" style="color:#e11d48;">0</strong></div>
+        </div>
+        <div class="metric metric-margin">
+          <span class="metric-icon"><i data-lucide="chart-no-axes-combined"></i></span>
+          <div><span class="metric-label">Biên lợi nhuận TB (ước tính)</span><strong id="statAvgMargin">0%</strong></div>
+        </div>
+      </div>
+
+      <!-- FILTER PANEL -->
+      <div class="filter-panel">
+        <div class="search-toolbar">
+          <div class="search-field">
+            <i data-lucide="search"></i>
+            <input type="search" id="searchInput" aria-label="Tìm sản phẩm" placeholder="Tìm tên sản phẩm, ID, từ khóa 1688 hoặc chất liệu…">
+            <kbd>/</kbd>
+          </div>
+          <select id="nicheSelect" aria-label="Ngách hàng"><option value="all">Tất cả ngách hàng</option></select>
+          <button id="btnResetFilters" class="button button-quiet" disabled><i data-lucide="rotate-ccw"></i>Đặt lại</button>
+        </div>
+
+        <div class="quick-filters">
+          <!-- BỘ LỌC ĐIỀU KIỆN THỬ BÁN (MỤC TIÊU CỐT LÕI) -->
+          <div class="filter-group">
+            <span class="filter-label">Thử Bán:</span>
+            <div class="filter-options" role="group" aria-label="Điều kiện thử bán">
+              <button class="elig-filter-btn" data-elig="ALL" aria-pressed="true">Tất cả</button>
+              <button class="elig-filter-btn text-emerald-700" data-elig="READY_FOR_TRIAL" aria-pressed="false">✓ Đủ điều kiện</button>
+              <button class="elig-filter-btn text-amber-700" data-elig="NEEDS_VERIFICATION" aria-pressed="false">⚠️ Cần xác minh</button>
+              <button class="elig-filter-btn text-rose-700" data-elig="NOT_ELIGIBLE" aria-pressed="false">✕ Chưa đạt</button>
+            </div>
+          </div>
+
+          <!-- Cơ hội Buy Box -->
+          <div class="filter-group">
+            <span class="filter-label">Buy Box:</span>
+            <div class="filter-options" role="group" aria-label="Cơ hội Buy Box">
+              <button class="buybox-filter-btn" data-buybox="ALL" aria-pressed="true">Tất cả</button>
+              <button class="buybox-filter-btn" data-buybox="WING_ONLY" aria-pressed="false"><i data-lucide="flame"></i>Wing</button>
+              <button class="buybox-filter-btn" data-buybox="ROCKET_ONLY" aria-pressed="false"><i data-lucide="rocket"></i>Rocket</button>
+            </div>
+          </div>
+
+          <!-- Xếp hạng Win Heuristic -->
+          <div class="filter-group">
+            <span class="filter-label">Xếp hạng WPI:</span>
+            <div class="filter-options" role="group" aria-label="Xếp hạng Win">
+              <button class="tier-filter-btn" data-tier="ALL" aria-pressed="true">Tất cả</button>
+              <button class="tier-filter-btn" data-tier="DIAMOND" aria-pressed="false"><i data-lucide="gem"></i>Diamond</button>
+              <button class="tier-filter-btn" data-tier="GOLD" aria-pressed="false">Gold</button>
+            </div>
+          </div>
+
+          <!-- Khoảng giá -->
+          <div class="filter-group">
+            <span class="filter-label">Giá bán:</span>
+            <div class="filter-options" role="group" aria-label="Khoảng giá">
+              <button class="price-filter-btn" data-price="ALL" aria-pressed="true">Tất cả</button>
+              <button class="price-filter-btn" data-price="UNDER_50K" aria-pressed="false" title="Dưới ngưỡng giá thử bán">&lt; 50k</button>
+              <button class="price-filter-btn" data-price="50K_TO_100K" aria-pressed="false" title="Khoảng giá cần duyệt">50k – 100k</button>
+              <button class="price-filter-btn" data-price="OVER_100K" aria-pressed="false" title="Khoảng giá ưu tiên">&gt; 100k</button>
+            </div>
+          </div>
+
+          <label class="kc-toggle">
+            <input type="checkbox" id="chkKcSafeOnly">
+            <i data-lucide="shield-check"></i>Chỉ miễn trừ KC
+          </label>
+        </div>
+
+        <details class="material-filter">
+          <summary>
+            <i data-lucide="layers"></i>Chất liệu
+            <span id="selectedMaterialLabel">Tất cả</span>
+            <i data-lucide="chevron-down" class="details-chevron"></i>
+          </summary>
+          <div id="materialTagsContainer" class="material-options"></div>
+        </details>
+      </div>
+
+      <!-- BẢNG SẢN PHẨM -->
+      <div class="products-panel">
+        <p class="selection-guide">Ưu tiên “Đủ điều kiện” để thử bán. Nếu chưa có, lọc “Cần xác minh”, kiểm tra hồ sơ và lưu ứng viên vào Watchlist. Lợi nhuận khi “Chưa đủ chi phí” chỉ là tạm tính.</p>
+        <div class="results-toolbar">
+          <div>
+            <h2>Sản phẩm nghiên cứu</h2>
+            <span id="resultCount" role="status" aria-live="polite">Đang tải…</span>
+          </div>
+          <div class="sort-control">
+            <label for="sortSelect"><i data-lucide="arrow-down-up"></i>Sắp xếp</label>
+            <select id="sortSelect">
+              <option value="wpi_desc">Điểm WPI cao nhất</option>
+              <option value="margin_desc">Biên lợi nhuận cao nhất</option>
+              <option value="profit_desc">Lãi ròng cao nhất</option>
+              <option value="price_desc">Giá bán: cao đến thấp</option>
+              <option value="price_asc">Giá bán: thấp đến cao</option>
+              <option value="cogs_asc">Giá vốn 1688 thấp nhất</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-scroll" tabindex="0" role="region" aria-label="Bảng sản phẩm">
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th scope="col" style="min-width: 140px;">Điều kiện thử bán / WPI</th>
+                <th scope="col" style="min-width: 260px;">Sản phẩm Coupang & Buy Box</th>
+                <th scope="col" style="min-width: 200px;">Nguồn hàng 1688 & Bằng chứng</th>
+                <th scope="col" class="numeric">Giá bán <small>KRW</small></th>
+                <th scope="col" class="numeric">Vốn 1688 <small>CNY</small></th>
+                <th scope="col" class="numeric">Lãi ròng <small>KRW / Margin</small></th>
+                <th scope="col">An toàn KC</th>
+                <th scope="col" class="actions-heading">Thao tác</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody">
+              <tr><td colspan="8" class="table-empty"><i data-lucide="loader-2" class="animate-spin"></i><p>Đang tải dữ liệu sản phẩm…</p></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <nav class="table-pagination" aria-label="Phân trang sản phẩm">
+          <span id="pageRange" role="status" aria-live="polite">0 sản phẩm</span>
+          <label class="page-size-control" for="pageSizeSelect">Mỗi trang
+            <select id="pageSizeSelect"><option value="10">10</option><option value="20" selected>20</option><option value="50">50</option></select>
+          </label>
+          <div class="page-navigation">
+            <button id="btnPreviousPage" class="button button-secondary" disabled>Trước</button>
+            <label for="pageNumber">Trang</label>
+            <input id="pageNumber" type="number" min="1" max="1" value="1" step="1" aria-label="Chuyển đến trang" disabled>
+            <span id="pageTotal">/ 1</span>
+            <button id="btnNextPage" class="button button-secondary" disabled>Sau</button>
+          </div>
+        </nav>
+      </div>
+    </section>
+
+    <!-- TAB 2: ITEM WINNER & TIÊU CHÍ THẨM ĐỊNH -->
+    <section id="tabInspector" class="tab-pane hidden space-y-6">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <div>
+            <h2 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+              <i data-lucide="cpu" class="w-5 h-5 text-coupang-blue"></i>
+              <span>Soi Thuật Toán Item Winner & Đánh Giá Tiêu Chí Nghiên Cứu</span>
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">Đối chiếu chi tiết 7 tiêu chí nghiên cứu ngách K-Drop v3 và cơ chế Buy Box của Coupang.</p>
+          </div>
+          <div class="text-xs px-3 py-1 bg-slate-100 text-slate-700 rounded-full font-mono">
+            Research Profile v3
+          </div>
+        </div>
+
+        <div id="inspectorContent" class="space-y-4">
+          <div class="text-xs text-slate-500 italic py-8 text-center">
+            Hãy bấm nút "Soi Tiêu Chí" hoặc "Thuật Toán" của bất kỳ sản phẩm nào trong bảng để xem chi tiết đối chiếu tại đây.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: UNIT ECONOMICS SIMULATOR -->
+    <section id="tabCalculator" class="tab-pane hidden space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Input Form -->
+        <div class="lg:col-span-4 bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5">
+          <div class="flex items-start justify-between">
+            <div>
+              <h2 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+                <i data-lucide="sliders" class="w-5 h-5 text-coupang-blue"></i>
+                <span>Tham Số Mô Phỏng Tài Chính</span>
+              </h2>
+              <p class="text-xs text-slate-500 mt-1" id="calcLoadedProdTitle">Đang mô phỏng giả định độc lập</p>
+            </div>
+            <button id="btnSaveAsBaseline" class="hidden px-2.5 py-1 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg text-[11px] font-bold shadow-xs transition" title="Lưu các thông số hiện tại thành cơ sở chính thức cho sản phẩm">
+              Lưu Thành Cơ Sở
+            </button>
+          </div>
+
+          <div class="space-y-3 text-xs">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">1. Đơn Hàng Cơ Sở</span>
+            
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Giá bán trên Coupang (KRW):</label>
+              <input type="number" id="calcPriceKrw" value="15800" step="500" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-coupang-blue/20">
+            </div>
+
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Giá vốn xưởng 1688 (CNY / Tệ):</label>
+              <input type="number" id="calcCogsCny" value="12" step="0.5" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm font-bold text-alibaba-orange focus:bg-white focus:outline-none focus:ring-2 focus:ring-alibaba-orange/20">
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Trọng lượng (gram):</label>
+                <input type="number" id="calcWeight" value="250" step="50" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Tỷ giá CNY/KRW:</label>
+                <input type="number" id="calcExchangeRate" value="190" step="1" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Cước ship đã báo (KRW):</label>
+                <input type="number" id="calcQuotedShip" placeholder="Để trống nếu tính theo cân" step="500" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Chi phí Ads / đơn (KRW):</label>
+                <input type="number" id="calcAdCost" value="0" step="500" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold">
+              </div>
+            </div>
+
+            <div>
+              <label class="flex items-center space-x-2 cursor-pointer select-none">
+                <input type="checkbox" id="calcIsCgf" class="rounded text-coupang-blue focus:ring-0">
+                <span class="font-medium text-slate-700">Mô hình Rocket Growth CGF (+400 KRW/sp)</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-slate-100 space-y-3 text-xs">
+            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">2. Giả Định Dự Phòng & Vốn</span>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Dự phòng hoàn/hủy (%):</label>
+                <input type="number" id="calcReturnRate" value="3" step="0.5" min="0" max="20" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Đóng góp mong muốn (%):</label>
+                <input type="number" id="calcTargetContrib" value="15" step="1" min="5" max="50" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold">
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Ước tính đơn / ngày:</label>
+                <input type="number" id="calcOrdersDay" value="10" step="1" min="1" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold">
+              </div>
+              <div>
+                <label class="block font-semibold text-slate-700 mb-1">Chu kỳ đối soát (ngày):</label>
+                <input type="number" id="calcSettlementDays" value="30" step="5" min="7" class="w-full px-3 py-1.5 bg-slate-50 border border-slate-200 rounded-lg text-xs font-semibold">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Result Dashboard -->
+        <div class="lg:col-span-8 space-y-6">
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-5">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+              <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+                <i data-lucide="line-chart" class="w-4 h-4 text-coupang-blue"></i>
+                <span>Chỉ Số Kinh Tế Đơn Hàng (Unit Economics)</span>
+              </h3>
+              <span id="calcVerdictBadge" class="px-3 py-1 rounded-full text-xs font-bold border">--</span>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
+                <p class="text-[11px] text-slate-500 font-medium">Lãi Ròng (Sau Tất Cả Chi Phí)</p>
+                <p id="calcNetProfitKrw" class="text-base font-black text-slate-900 mt-1">-- KRW</p>
+                <span id="calcNetMarginPct" class="text-[10px] font-bold text-emerald-600">--% Margin</span>
+              </div>
+
+              <div class="bg-blue-50/50 p-3 rounded-xl border border-blue-200/80">
+                <p class="text-[11px] text-blue-700 font-semibold">Pre-ad Margin (Trần Ads)</p>
+                <p id="calcPreAdMarginKrw" class="text-base font-black text-blue-800 mt-1">-- KRW</p>
+                <span id="calcPreAdMarginPct" class="text-[10px] font-bold text-blue-600">--% Doanh thu</span>
+              </div>
+
+              <div class="bg-amber-50/50 p-3 rounded-xl border border-amber-200/80">
+                <p class="text-[11px] text-amber-700 font-semibold">ROAS Hòa Vốn</p>
+                <p id="calcBreakevenRoas" class="text-base font-black text-amber-800 mt-1">--%</p>
+                <span class="text-[10px] font-medium text-amber-600">Ngưỡng Ads tối thiểu</span>
+              </div>
+
+              <div class="bg-purple-50/50 p-3 rounded-xl border border-purple-200/80">
+                <p class="text-[11px] text-purple-700 font-semibold">CPA Tối Đa Cho Phép</p>
+                <p id="calcMaxAllowedCpa" class="text-base font-black text-purple-800 mt-1">-- KRW</p>
+                <span class="text-[10px] font-medium text-purple-600">Giữ lãi đóng góp 15%</span>
+              </div>
+
+              <div class="bg-orange-50/50 p-3 rounded-xl border border-orange-200/80">
+                <p class="text-[11px] text-alibaba-orange font-semibold">Vốn 1688 Trần (30%)</p>
+                <p id="calcTargetMaxCny" class="text-base font-black text-alibaba-orange mt-1">-- CNY</p>
+                <span class="text-[10px] font-medium text-orange-600">Ngưỡng đàm phán xưởng</span>
+              </div>
+
+              <div class="bg-slate-50 p-3 rounded-xl border border-slate-200/80">
+                <p class="text-[11px] text-slate-500 font-medium">Tỷ Suất ROI Vốn</p>
+                <p id="calcRoiPct" class="text-base font-black text-slate-900 mt-1">--%</p>
+                <span class="text-[10px] font-medium text-slate-500">Trên vốn nhập + ship</span>
+              </div>
+            </div>
+
+            <div class="space-y-1.5 text-xs border-t border-slate-100 pt-3">
+              <div class="flex justify-between text-slate-600">
+                <span>1. Doanh thu bán hàng Coupang:</span>
+                <span id="calcRowRevenue" class="font-bold text-slate-900">0 KRW</span>
+              </div>
+              <div class="flex justify-between text-slate-600">
+                <span>2. Giá vốn nhập hàng 1688:</span>
+                <span id="calcRowCogs" class="text-slate-800">0 KRW</span>
+              </div>
+              <div class="flex justify-between text-slate-600">
+                <span>3. Phí hoa hồng sàn Coupang (11%):</span>
+                <span id="calcRowFee" class="text-slate-800">0 KRW</span>
+              </div>
+              <div class="flex justify-between text-slate-600">
+                <span>4. Phí vận chuyển quốc tế TQ ➔ KR:</span>
+                <span id="calcRowShip" class="text-slate-800">0 KRW</span>
+              </div>
+              <div class="flex justify-between text-slate-600">
+                <span>5. Dự phòng hoàn trả / hỏng hóc:</span>
+                <span id="calcRowReturnReserve" class="text-red-600 font-medium">0 KRW</span>
+              </div>
+              <div class="flex justify-between text-slate-600">
+                <span>6. Chi phí quảng cáo (Ads):</span>
+                <span id="calcRowAds" class="text-slate-800">0 KRW</span>
+              </div>
+              <div class="flex justify-between text-slate-600">
+                <span>7. Phí xử lý kho CGF (nếu có):</span>
+                <span id="calcRowCgf" class="text-slate-800">0 KRW</span>
+              </div>
+              <div class="flex justify-between pt-2 border-t border-slate-200 font-bold text-xs">
+                <span class="text-slate-900">LÃI RÒNG CUỐI CÙNG (NET PROFIT):</span>
+                <span id="calcRowFinalProfit" class="text-blue-700">0 KRW</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5.3: 3 Kịch Bản Rủi Ro Giả Định -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+                <i data-lucide="git-branch" class="w-4 h-4 text-emerald-600"></i>
+                <span>3 Kịch Bản Rủi Ro Sau Quảng Cáo (Giả Định Tham Khảo)</span>
+              </h3>
+              <p class="text-xs text-slate-500 mt-1">Các kịch bản này là giả định mô phỏng, không đại diện cho báo giá thực của nhà cung cấp.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
+              <div class="p-4 rounded-xl border border-emerald-200 bg-emerald-50/50 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-emerald-800">1. Thuận Lợi (Giả định)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold">ROAS 1000%</span>
+                </div>
+                <div class="text-[11px] text-slate-600 space-y-1">
+                  <p>• Hoàn hàng: <b>1%</b></p>
+                  <p>• Phí Ads / đơn: <b id="scenarioFavCpa">0 KRW</b> (10%)</p>
+                </div>
+                <div class="pt-2 border-t border-emerald-200">
+                  <div class="text-[10px] text-slate-500">Lợi nhuận đóng góp:</div>
+                  <div id="scenarioFavProfit" class="text-base font-black text-emerald-700">-- KRW</div>
+                  <span id="scenarioFavPct" class="text-[11px] font-bold text-emerald-600">--%</span>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl border border-blue-200 bg-blue-50/50 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-blue-800">2. Cơ Sở (Giả định)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded font-bold">ROAS 500%</span>
+                </div>
+                <div class="text-[11px] text-slate-600 space-y-1">
+                  <p>• Hoàn hàng: <b>3%</b></p>
+                  <p>• Phí Ads / đơn: <b id="scenarioBaseCpa">0 KRW</b> (20%)</p>
+                </div>
+                <div class="pt-2 border-t border-blue-200">
+                  <div class="text-[10px] text-slate-500">Lợi nhuận đóng góp:</div>
+                  <div id="scenarioBaseProfit" class="text-base font-black text-blue-700">-- KRW</div>
+                  <span id="scenarioBasePct" class="text-[11px] font-bold text-blue-600">--%</span>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl border border-amber-200 bg-amber-50/50 space-y-2">
+                <div class="flex items-center justify-between">
+                  <span class="font-bold text-amber-800">3. Bất Lợi (Giả định)</span>
+                  <span class="text-[10px] px-1.5 py-0.5 bg-amber-100 text-amber-800 rounded font-bold">ROAS 350%</span>
+                </div>
+                <div class="text-[11px] text-slate-600 space-y-1">
+                  <p>• Hoàn <b>5%</b> + cước tăng 1k ₩</p>
+                  <p>• Phí Ads / đơn: <b id="scenarioAdvCpa">0 KRW</b> (28.5%)</p>
+                </div>
+                <div class="pt-2 border-t border-amber-200">
+                  <div class="text-[10px] text-slate-500">Lợi nhuận đóng góp:</div>
+                  <div id="scenarioAdvProfit" class="text-base font-black text-amber-800">-- KRW</div>
+                  <span id="scenarioAdvPct" class="text-[11px] font-bold text-amber-700">--%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 5.4: Dự Toán Vốn Lưu Động -->
+          <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+                <i data-lucide="wallet" class="w-4 h-4 text-purple-600"></i>
+                <span>Dự Toán Vốn Lưu Động Theo Chu Kỳ Đối Soát</span>
+              </h3>
+              <p class="text-xs text-slate-500 mt-1">Dựa trên giả định số đơn/ngày và số ngày chờ đối soát của Coupang.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+              <div class="p-3.5 bg-slate-50 rounded-xl border border-slate-200">
+                <span class="text-[11px] text-slate-500 font-medium">Vốn ứng trước / đơn:</span>
+                <p id="wcCapitalPerOrder" class="text-sm font-black text-slate-800 mt-1">-- KRW</p>
+                <span class="text-[10px] text-slate-400">Vốn 1688 + cước ship</span>
+              </div>
+
+              <div class="p-3.5 bg-purple-50/60 rounded-xl border border-purple-200">
+                <span class="text-[11px] text-purple-700 font-semibold">Vốn Xoay Vòng (Won):</span>
+                <p id="wcTotalKrw" class="text-base font-black text-purple-900 mt-1">-- KRW</p>
+                <span class="text-[10px] text-purple-600 font-medium">Theo chu kỳ đã chọn</span>
+              </div>
+
+              <div class="p-3.5 bg-indigo-50/60 rounded-xl border border-indigo-200">
+                <span class="text-[11px] text-indigo-700 font-semibold">Quy Đổi Tiền Việt (VND):</span>
+                <p id="wcTotalVnd" class="text-base font-black text-indigo-900 mt-1">-- VND</p>
+                <span class="text-[10px] text-indigo-600 font-medium">1 KRW ~ 18.5 VND</span>
+              </div>
+            </div>
+
+            <div class="p-3 bg-purple-50/40 rounded-xl text-xs text-purple-800 border border-purple-200 flex items-start space-x-2">
+              <i data-lucide="alert-circle" class="w-4 h-4 text-purple-600 shrink-0 mt-0.5"></i>
+              <p id="wcNoteVi" class="leading-relaxed font-medium">
+                Cần chuẩn bị khoảng vốn dự phòng để dòng tiền không bị đứt gãy trước ngày đối soát của Coupang.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 4: WATCHLIST -->
+    <section id="tabWatchlist" class="tab-pane hidden space-y-4">
+      <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm space-y-4">
+        <h2 class="text-base font-bold text-slate-900 flex items-center space-x-2">
+          <i data-lucide="bookmark" class="w-5 h-5 text-amber-500"></i>
+          <span>Danh Sách Theo Dõi (Watchlist)</span>
+        </h2>
+        <p class="text-xs text-slate-500">Các sản phẩm tiềm năng bạn đã đánh dấu để chuẩn bị bổ sung bằng chứng và liên hệ xưởng.</p>
+        <div id="watchlistContainer" class="text-xs text-slate-500 py-8 text-center">
+          Chưa có sản phẩm nào trong Watchlist.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL: HỒ SƠ BẰNG CHỨNG (EVIDENCE DOSSIER MODAL) -->
+  <div id="dossierModal" role="dialog" aria-modal="true" aria-label="Hồ sơ bằng chứng và báo giá" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center hidden p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] shadow-2xl border border-slate-200 flex flex-col overflow-hidden">
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between shrink-0">
+        <div>
+          <span class="text-[10px] font-bold text-coupang-blue uppercase tracking-wider block">Hồ Sơ Nghiên Cứu & Bằng Chứng Thị Trường</span>
+          <h3 id="dossierProductTitle" class="text-sm font-bold text-slate-900 line-clamp-1 mt-0.5">Tên sản phẩm</h3>
+        </div>
+        <button id="btnCloseDossierModal" class="text-slate-400 hover:text-slate-700 text-lg p-1">✕</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-5 text-xs">
+        <input type="hidden" id="dossierProductId">
+
+        <!-- 1. Báo Giá Xưởng 1688 -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-slate-900 flex items-center space-x-1.5">
+              <i data-lucide="factory" class="w-4 h-4 text-alibaba-orange"></i>
+              <span>1. Báo Giá & Quy Cách Xưởng 1688</span>
+            </h4>
+            <span id="dossierQuoteStatus" class="px-2 py-0.5 text-[10px] font-bold rounded bg-amber-100 text-amber-800">Chưa xác minh</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Đường dẫn nguồn xưởng 1688 (URL):</label>
+              <input type="url" id="dossierSupplierUrl" placeholder="https://detail.1688.com/offer/..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Quy cách / Phân loại (Variant):</label>
+              <input type="text" id="dossierVariant" placeholder="VD: Bộ 4 món nam châm..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Đơn giá (CNY):</label>
+              <input type="number" id="dossierUnitPriceCny" step="0.5" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg font-bold text-alibaba-orange">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Số lượng dự kiến:</label>
+              <input type="number" id="dossierQuantity" step="1" value="10" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">MOQ xưởng:</label>
+              <input type="number" id="dossierMoq" step="1" value="1" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Ngày báo giá:</label>
+              <input type="date" id="dossierQuoteDate" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Ghi chú thỏa thuận MOQ (nếu SL &lt; MOQ):</label>
+              <input type="text" id="dossierMoqNotes" placeholder="VD: Đã chat thỏa thuận xưởng gửi mẫu..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+
+          <div class="pt-2 border-t border-slate-200/60">
+            <label class="flex items-start space-x-2 cursor-pointer select-none">
+              <input type="checkbox" id="dossierIsVerified" class="mt-0.5 rounded text-coupang-blue focus:ring-0">
+              <span class="text-[11px] font-bold text-slate-800">
+                Tôi xác nhận đã kiểm tra và báo giá này áp dụng chính xác cho quy cách và số lượng dự kiến đặt mua.
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- 2. Nhu Cầu Tìm Kiếm & Mùa Vụ -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <h4 class="font-bold text-slate-900 flex items-center space-x-1.5">
+            <i data-lucide="trending-up" class="w-4 h-4 text-blue-600"></i>
+            <span>2. Bằng Chứng Nhu Cầu Tìm Kiếm (≥ 10,000 lượt)</span>
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Từ khóa chính:</label>
+              <input type="text" id="dossierDemandKeyword" placeholder="VD: 차량용 암막커튼" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Lượt tìm đỉnh tháng năm trước:</label>
+              <input type="number" id="dossierPeakSearches" placeholder="≥ 10,000" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg font-bold">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Nguồn số liệu:</label>
+              <input type="text" id="dossierDemandSource" placeholder="Naver DataLab / ItemScout" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Khu vực địa lý:</label>
+              <input type="text" id="dossierDemandGeography" value="KR" placeholder="KR" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Kỳ đối chiếu năm trước:</label>
+              <input type="text" id="dossierDemandPeriod" placeholder="VD: 2025-01 ~ 2025-12" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Đơn vị đo lường:</label>
+              <select id="dossierDemandUnit" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+                <option value="SEARCHES">Lượt tìm kiếm (SEARCHES)</option>
+                <option value="ABSOLUTE_SEARCHES">Số tuyệt đối (ABSOLUTE_SEARCHES)</option>
+              </select>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <label class="flex items-center space-x-2 cursor-pointer select-none">
+              <input type="checkbox" id="dossierSeasonalityReviewed" class="rounded text-coupang-blue focus:ring-0">
+              <span class="font-bold text-slate-800">Đã rà soát biểu đồ mùa vụ cho từ khóa cụ thể này</span>
+            </label>
+            <input type="text" id="dossierSeasonalityNotes" placeholder="Ghi chú mùa vụ (VD: Bán chạy từ tháng 5 đến tháng 8...)" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg mt-1">
+          </div>
+        </div>
+
+        <!-- 3. Mẫu Kiểm Tra Đối Thủ Rocket -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="font-bold text-slate-900 flex items-center space-x-1.5">
+              <i data-lucide="rocket" class="w-4 h-4 text-purple-600"></i>
+              <span>3. Mẫu Kiểm Tra Đối Thủ Rocket (&lt; 70%)</span>
+            </h4>
+            <span id="dossierRocketShareBadge" class="px-2 py-0.5 text-[10px] font-bold rounded bg-slate-200 text-slate-700">Chưa kiểm tra</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Số sản phẩm trong mẫu kiểm tra:</label>
+              <input type="number" id="dossierSampleSize" placeholder="VD: 50" min="1" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Số sản phẩm là Rocket (Delivery / Growth):</label>
+              <input type="number" id="dossierRocketCount" placeholder="VD: 15" min="0" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Từ khóa / Danh mục kiểm tra:</label>
+              <input type="text" id="dossierRocketKeyword" placeholder="VD: 차량용 암막커튼" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Ngày kiểm tra mẫu:</label>
+              <input type="date" id="dossierRocketInspectedAt" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Review Nhà Bán Quốc Tế -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <h4 class="font-bold text-slate-900 flex items-center space-x-1.5">
+            <i data-lucide="globe" class="w-4 h-4 text-emerald-600"></i>
+            <span>4. Review Nhà Bán Quốc Tế Đối Thủ (≥ 30 reviews)</span>
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Link sản phẩm đối thủ giao quốc tế:</label>
+              <input type="url" id="dossierOfferUrl" placeholder="https://www.coupang.com/vp/products/..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Số review của riêng seller quốc tế:</label>
+              <input type="number" id="dossierSellerReviews" placeholder="≥ 30 reviews" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg font-bold">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Mã định danh Seller đối thủ (ID):</label>
+              <input type="text" id="dossierSellerId" placeholder="VD: A00123456" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Ngày kiểm tra seller:</label>
+              <input type="date" id="dossierSellerInspectedAt" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+          <label class="flex items-center space-x-2 cursor-pointer select-none">
+            <input type="checkbox" id="dossierIsInternational" class="rounded text-coupang-blue focus:ring-0">
+            <span class="font-medium text-slate-700">Đã quan sát nhãn giao hàng quốc tế (해외직구 / International delivery)</span>
+          </label>
+        </div>
+
+        <!-- 5. Giải Trình Giá Bán (Khoảng 50k - 100k) -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+          <h4 class="font-bold text-slate-900 flex items-center space-x-1.5">
+            <i data-lucide="tag" class="w-4 h-4 text-amber-600"></i>
+            <span>5. Giải Trình Giá Bán (Bắt buộc nếu giá trong khoảng 50k - 100k KRW)</span>
+          </h4>
+          <p class="text-[11px] text-slate-500">Nếu giá bán mục tiêu nằm trong khoảng 50,000 đến dưới 100,000 KRW, cần ghi nhận giải trình kinh tế rõ ràng.</p>
+          <textarea id="dossierPriceJustification" rows="2" placeholder="Giải trình lý do mức giá này đảm bảo hiệu quả kinh tế..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg"></textarea>
+        </div>
+
+        <!-- 6. Thẩm Định Chứng Nhận KC -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <h4 class="font-bold text-slate-900 flex items-center space-x-1.5">
+            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-600"></i>
+            <span>6. Thẩm Định An Toàn & Chứng Nhận KC</span>
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Trạng thái thẩm định KC:</label>
+              <select id="dossierKcStatus" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+                <option value="PENDING">Chưa thẩm định (Mặc định)</option>
+                <option value="EXEMPT">Miễn trừ KC (EXEMPT)</option>
+                <option value="EXEMPT_CONFIRMED">Đã xác nhận miễn trừ KC</option>
+                <option value="DOCUMENTED_CERTIFICATE">Có chứng chỉ / giấy phép KC hợp lệ</option>
+                <option value="REVIEWED_SAFE">Đã rà soát an toàn quy chuẩn</option>
+                <option value="INELIGIBLE">Không đạt an toàn / cấm bán</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Căn cứ tra cứu / Căn cứ pháp lý:</label>
+              <input type="text" id="dossierKcSource" placeholder="VD: Tra cứu SafetyKorea mục đồ dệt may..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Ngày thẩm định:</label>
+              <input type="date" id="dossierKcReviewDate" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Lý do & Ghi chú thẩm định:</label>
+              <input type="text" id="dossierKcNotes" placeholder="VD: Vải không pin/điện, thuộc diện miễn chứng nhận..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+        </div>
+
+        <!-- 7. Sẵn Sàng Vận Chuyển & Xử Lý Đơn (Fulfillment Readiness) -->
+        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-3">
+          <h4 class="font-bold text-slate-900 flex items-center space-x-1.5">
+            <i data-lucide="truck" class="w-4 h-4 text-sky-600"></i>
+            <span>7. Sẵn Sàng Vận Chuyển & Xử Lý Đơn (Fulfillment)</span>
+          </h4>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Cơ sở tính cước vận chuyển:</label>
+              <select id="dossierFulfillmentBasis" class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+                <option value="REVIEWED_WEIGHT">Theo trọng lượng đã kiểm chứng (REVIEWED_WEIGHT)</option>
+                <option value="QUOTED">Báo giá cước thực tế từ đơn vị vận chuyển (QUOTED)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Căn cứ / Nguồn đối chiếu cước:</label>
+              <input type="text" id="dossierFulfillmentSource" placeholder="VD: Biểu phí vận chuyển CJ / 4PX thực tế..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Ước tính thời gian giao hàng:</label>
+              <input type="text" id="dossierFulfillmentDelivery" placeholder="VD: 5-7 ngày làm việc..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block font-semibold text-slate-700 mb-1">Phương án xử lý hàng hoàn / hủy:</label>
+              <input type="text" id="dossierFulfillmentReturn" placeholder="VD: Đầu mối kho Incheon tiếp nhận xử lý..." class="w-full px-3 py-1.5 bg-white border border-slate-200 rounded-lg">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex items-center justify-between shrink-0">
+        <span class="text-[11px] text-slate-500 italic">Dữ liệu được lưu trực tiếp vào cơ sở dữ liệu trên máy bạn.</span>
+        <div class="flex space-x-2">
+          <button id="btnCancelDossier" class="px-4 py-2 bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold rounded-lg transition">Hủy</button>
+          <button id="btnSaveDossier" class="px-5 py-2 bg-coupang-blue hover:bg-blue-600 text-white font-bold rounded-lg shadow-sm transition">Lưu Hồ Sơ</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: IMPORT DATA -->
+  <div id="importModal" role="dialog" aria-modal="true" aria-label="Nạp dữ liệu sản phẩm" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl border border-slate-200 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
+          <i data-lucide="upload" class="w-4 h-4 text-coupang-blue"></i>
+          <span>Nạp Dữ Liệu Sản Phẩm / Khôi Phục Backup</span>
+        </h3>
+        <button id="btnCloseImportModal" class="text-slate-400 hover:text-slate-600 text-lg">✕</button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block font-semibold text-slate-700 mb-1">Tên ngách / danh mục:</label>
+          <input type="text" id="importNicheName" placeholder="VD: Gối tựa đầu ô tô..." class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-coupang-blue">
+        </div>
+
+        <div id="dropZone" role="button" tabindex="0" aria-label="Chọn file dữ liệu JSON" class="border-2 border-dashed border-slate-200 rounded-xl p-6 text-center cursor-pointer hover:border-coupang-blue hover:bg-blue-50/20 transition">
+          <i data-lucide="file-up" class="w-8 h-8 mx-auto text-slate-400 mb-2"></i>
+          <p class="font-medium text-slate-700">Bấm để chọn file JSON</p>
+          <span class="text-[10px] text-slate-400">Hỗ trợ backup K-Drop v2 hoặc mảng sản phẩm cũ</span>
+          <input type="file" id="fileInput" accept=".json" class="hidden">
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-100">
+        <button id="btnCancelImport" class="px-4 py-2 bg-slate-100 text-slate-700 font-bold rounded-lg hover:bg-slate-200 transition">Hủy</button>
+        <button id="btnConfirmImport" class="px-4 py-2 bg-coupang-blue text-white font-bold rounded-lg hover:bg-blue-600 transition">Bắt Đầu Nạp</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OFFLINE SCRIPTS -->
+  <script src="js/lucide.min.js"></script>
+  <script src="../core/kcRules.js"></script>
+  <script src="../core/materialEngine.js"></script>
+  <script src="../core/feeCalculator.js"></script>
+  <script src="../core/winAlgorithm.js"></script>
+  <script src="../storage/storageRepository.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

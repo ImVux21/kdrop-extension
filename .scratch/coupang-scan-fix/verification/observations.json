@@ -1,0 +1,146 @@
+[
+  {
+    "entry": "floating",
+    "name": "modern",
+    "message": "✓ Đã nạp 1 sản phẩm!",
+    "products": [
+      {
+        "id": "9693648728",
+        "price": 195800,
+        "url": "https://www.coupang.com/vp/products/9693648728?vendorItemId=95921999183",
+        "thumbnail": "https://thumbnail.coupangcdn.com/item.jpg",
+        "rank": null
+      }
+    ]
+  },
+  {
+    "entry": "floating",
+    "name": "homepage",
+    "message": "Trang chủ Coupang chưa thấy thẻ sản phẩm có thể nhập. Vui lòng mở trang tìm kiếm, danh mục hoặc chi tiết sản phẩm; nếu nội dung đang tải, hãy chờ rồi quét lại.",
+    "products": []
+  },
+  {
+    "entry": "floating",
+    "name": "incomplete",
+    "message": "Phát hiện 1 thẻ sản phẩm nhưng thiếu thông tin mã, tên hoặc giá bán rõ ràng. Vui lòng tải lại trang hoặc thử trang danh mục/chi tiết.",
+    "products": []
+  },
+  {
+    "entry": "floating",
+    "name": "legacy",
+    "message": "✓ Đã nạp 1 sản phẩm!",
+    "products": [
+      {
+        "id": "123456789",
+        "price": 110000,
+        "url": "https://www.coupang.com/vp/products/123456789",
+        "thumbnail": "",
+        "rank": null
+      }
+    ]
+  },
+  {
+    "entry": "floating",
+    "name": "ambiguous",
+    "message": "Phát hiện 1 thẻ sản phẩm nhưng thiếu thông tin mã, tên hoặc giá bán rõ ràng. Vui lòng tải lại trang hoặc thử trang danh mục/chi tiết.",
+    "products": []
+  },
+  {
+    "entry": "floating",
+    "name": "foreign",
+    "message": "Phát hiện 1 thẻ sản phẩm nhưng thiếu thông tin mã, tên hoặc giá bán rõ ràng. Vui lòng tải lại trang hoặc thử trang danh mục/chi tiết.",
+    "products": []
+  },
+  {
+    "entry": "floating",
+    "name": "feeOnly",
+    "message": "Phát hiện 1 thẻ sản phẩm nhưng thiếu thông tin mã, tên hoặc giá bán rõ ràng. Vui lòng tải lại trang hoặc thử trang danh mục/chi tiết.",
+    "products": []
+  },
+  {
+    "entry": "sidepanel",
+    "name": "modern",
+    "message": "Đã quét và cập nhật thành công 1 sản phẩm!",
+    "products": [
+      {
+        "id": "9693648728",
+        "price": 195800,
+        "url": "https://www.coupang.com/vp/products/9693648728?vendorItemId=95921999183",
+        "thumbnail": "https://thumbnail.coupangcdn.com/item.jpg",
+        "rank": null
+      }
+    ]
+  },
+  {
+    "entry": "sidepanel",
+    "name": "homepage",
+    "message": "Trang chủ Coupang chưa thấy thẻ sản phẩm có thể nhập. Vui lòng mở trang tìm kiếm, danh mục hoặc chi tiết sản phẩm; nếu nội dung đang tải, hãy chờ rồi quét lại.",
+    "products": []
+  },
+  {
+    "entry": "sidepanel",
+    "name": "incomplete",
+    "message": "Phát hiện 1 thẻ sản phẩm nhưng thiếu thông tin mã, tên hoặc giá bán rõ ràng. Vui lòng tải lại trang hoặc thử trang danh mục/chi tiết.",
+    "products": []
+  },
+  {
+    "entry": "sidepanel",
+    "name": "legacy",
+    "message": "Đã quét và cập nhật thành công 1 sản phẩm!",
+    "products": [
+      {
+        "id": "123456789",
+        "price": 110000,
+        "url": "https://www.coupang.com/vp/products/123456789",
+        "thumbnail": "",
+        "rank": null
+      }
+    ]
+  },
+  {
+    "entry": "sidepanel",
+    "name": "ambiguous",
+    "message": "Phát hiện 1 thẻ sản phẩm nhưng thiếu thông tin mã, tên hoặc giá bán rõ ràng. Vui lòng tải lại trang hoặc thử trang danh mục/chi tiết.",
+    "products": []
+  },
+  {
+    "entry": "sidepanel",
+    "name": "foreign",
+    "message": "Phát hiện 1 thẻ sản phẩm nhưng thiếu thông tin mã, tên hoặc giá bán rõ ràng. Vui lòng tải lại trang hoặc thử trang danh mục/chi tiết.",
+    "products": []
+  },
+  {
+    "entry": "sidepanel",
+    "name": "feeOnly",
+    "message": "Phát hiện 1 thẻ sản phẩm nhưng thiếu thông tin mã, tên hoặc giá bán rõ ràng. Vui lòng tải lại trang hoặc thử trang danh mục/chi tiết.",
+    "products": []
+  },
+  {
+    "entry": "floating",
+    "name": "bsr/rescan",
+    "products": [
+      {
+        "id": "111111111",
+        "rank": null
+      },
+      {
+        "id": "222222222",
+        "rank": null
+      },
+      {
+        "id": "333333333",
+        "rank": null
+      }
+    ]
+  },
+  {
+    "entry": "floating",
+    "name": "rankMismatch/rescan",
+    "products": [
+      {
+        "id": "111111111",
+        "rank": null
+      }
+    ]
+  }
+]

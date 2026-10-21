@@ -1,0 +1,22 @@
+[
+  {
+    "Path": "C:\\Users\\vuodo\\Documents\\antigravity\\happy-hypatia\\kdrop-extension\\content\\coupang_extractor.js",
+    "Hash": "3B49990200B0160B56093DBF51F407EE0A3CFC3BE052BC00236B333EFACF2CF5"
+  },
+  {
+    "Path": "C:\\Users\\vuodo\\Documents\\antigravity\\happy-hypatia\\kdrop-extension\\content\\inpage_badge.js",
+    "Hash": "72219F6B77AD070BDB2EEFB119D1F41E7F569EFAA2BE05A3D13A48FBDD4D483B"
+  },
+  {
+    "Path": "C:\\Users\\vuodo\\Documents\\antigravity\\happy-hypatia\\kdrop-extension\\ui\\js\\sidepanel.js",
+    "Hash": "FBB60AED11E4EF0CF959B10ECB054EF852CE32C3C5C48B4943E48E64D8EEB962"
+  },
+  {
+    "Path": "C:\\Users\\vuodo\\Documents\\antigravity\\happy-hypatia\\kdrop-extension\\storage\\storageRepository.js",
+    "Hash": "B8B83F8FD311F8211B03FDE13F96B6AFE86E165D6233678B682C6FE8AD3EC055"
+  },
+  {
+    "Path": "C:\\Users\\vuodo\\Documents\\antigravity\\happy-hypatia\\kdrop-extension\\tests\\installed_coupang_gate.cjs",
+    "Hash": "F2B5A0F0749EE27D3167FF448E79F2EC3D4320E2C3EBD1E64221ED2B47DE9D01"
+  }
+]

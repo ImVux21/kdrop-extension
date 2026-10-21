@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-Drop Studio - Side Panel</title>
+  <link rel="stylesheet" href="css/tailwind.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="bg-slate-50 text-slate-800 text-xs font-sans antialiased flex flex-col h-screen select-none">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-slate-200 p-3 shrink-0 flex items-center justify-between">
+    <div class="flex items-center space-x-2">
+      <div class="w-7 h-7 bg-coupang-blue rounded-lg flex items-center justify-center text-white font-black text-sm">
+        K
+      </div>
+      <div>
+        <h1 class="font-black text-slate-900 leading-tight">K-Drop Studio</h1>
+        <span class="text-[10px] text-slate-400">Coupang ➔ 1688 Sidecar · <span id="extensionVersion"></span></span>
+      </div>
+    </div>
+    <button id="btnOpenDashboardTab" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-[11px] font-bold flex items-center space-x-1 transition">
+      <span>Dashboard</span>
+      <i data-lucide="external-link" class="w-3 h-3"></i>
+    </button>
+  </header>
+
+  <!-- Quick Nav Tabs -->
+  <div class="bg-white border-b border-slate-200 px-3 py-1 flex space-x-2 shrink-0">
+    <button class="side-tab-btn px-3 py-1.5 font-bold border-b-2 border-coupang-blue text-coupang-blue text-xs" data-target="panelList">
+      Sản Phẩm (<span id="sideCount">0</span>)
+    </button>
+    <button class="side-tab-btn px-3 py-1.5 font-bold border-b-2 border-transparent text-slate-500 hover:text-slate-800 text-xs" data-target="panelCalc">
+      Kinh Tế Đơn Hàng
+    </button>
+  </div>
+
+  <!-- CONTENT CONTAINER -->
+  <main class="flex-1 overflow-y-auto p-3 space-y-3">
+    
+    <!-- TAB 1: PRODUCT LIST & BSR SCANNER -->
+    <div id="panelList" class="space-y-3">
+      <!-- 1-Click Scan Button -->
+      <button id="btnScanCurrentTab" class="w-full py-2 px-3 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl font-bold flex items-center justify-center space-x-1.5 shadow-sm transition">
+        <i data-lucide="scan" class="w-4 h-4"></i>
+        <span>Quét Coupang Trang Này ➔ Nạp Ngay</span>
+      </button>
+
+      <div class="bg-white p-3 rounded-lg border border-slate-200 space-y-2">
+        <label for="scanPageLimit" class="block font-semibold">Quét các trang tiếp theo</label>
+        <div class="flex space-x-2">
+          <select id="scanPageLimit" class="border border-slate-200 rounded-lg px-2 py-1.5">
+            <option value="5">Tối đa 5 trang</option>
+            <option value="10" selected>Tối đa 10 trang</option>
+            <option value="25">Tối đa 25 trang</option>
+            <option value="50">Tối đa 50 trang</option>
+            <option value="100">Tối đa 100 trang</option>
+          </select>
+          <button id="btnScanPages" class="bg-coupang-blue text-white font-bold px-3 py-1.5 rounded-lg">Bắt đầu</button>
+          <button id="btnStopScanPages" class="border border-slate-200 px-2 py-1.5 rounded-lg" disabled>Dừng</button>
+        </div>
+        <p class="text-slate-500">Từ trang hiện tại đến trang cuối hoặc giới hạn đã chọn. Tab Coupang sẽ chuyển trang; mỗi trang được lưu ngay.</p>
+        <p id="scanPagesStatus" role="status" aria-live="polite" class="text-slate-600"></p>
+      </div>
+
+      <!-- Search Input -->
+      <div class="relative">
+        <input type="text" id="sideSearchInput" placeholder="Tìm theo tên Hàn, từ khóa 1688..." class="w-full pl-3 pr-3 py-1.5 bg-white border border-slate-200 rounded-lg text-xs focus:outline-none focus:ring-1 focus:ring-coupang-blue">
+      </div>
+
+      <!-- Quick KPI Stats: ĐIỀU KIỆN THỬ BÁN -->
+      <div class="grid grid-cols-3 gap-2">
+        <div class="bg-white p-2 rounded-lg border border-slate-200 text-center">
+          <span class="text-[10px] text-slate-400 block">Đủ Thử Bán</span>
+          <span id="sideStatReady" class="font-black text-emerald-600 text-sm">0</span>
+        </div>
+        <div class="bg-white p-2 rounded-lg border border-slate-200 text-center">
+          <span class="text-[10px] text-slate-400 block">Cần Xác Minh</span>
+          <span id="sideStatNeeds" class="font-black text-amber-600 text-sm">0</span>
+        </div>
+        <div class="bg-white p-2 rounded-lg border border-slate-200 text-center">
+          <span class="text-[10px] text-slate-400 block">Chưa Đạt</span>
+          <span id="sideStatNotEligible" class="font-black text-rose-600 text-sm">0</span>
+        </div>
+      </div>
+
+      <!-- Product Cards Container -->
+      <div id="sideProductsList" class="space-y-2">
+        <div class="text-center py-8 text-slate-400">
+          Đang tải dữ liệu...
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: MINI UNIT ECONOMICS CALCULATOR -->
+    <div id="panelCalc" class="hidden space-y-3">
+      <div class="bg-white p-3.5 rounded-xl border border-slate-200 space-y-3">
+        <h3 class="font-bold text-slate-900 flex items-center space-x-1">
+          <i data-lucide="calculator" class="w-4 h-4 text-coupang-blue"></i>
+          <span>Máy Tính Unit Economics</span>
+        </h3>
+
+        <div class="space-y-2">
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Giá bán Coupang (KRW):</label>
+            <input type="number" id="sideCalcPrice" value="15800" step="500" class="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-bold">
+          </div>
+          <div>
+            <label class="block text-[11px] font-semibold text-slate-600 mb-0.5">Vốn xưởng 1688 (CNY):</label>
+            <input type="number" id="sideCalcCogs" value="12" step="0.5" class="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-200 rounded-lg font-bold text-alibaba-orange">
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Cân nặng (gram):</label>
+              <input type="number" id="sideCalcWeight" value="250" class="w-full px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg">
+            </div>
+            <div>
+              <label class="block text-[10px] font-semibold text-slate-500 mb-0.5">Tỷ giá CNY/KRW:</label>
+              <input type="number" id="sideCalcRate" value="190" class="w-full px-2 py-1 bg-slate-50 border border-slate-200 rounded-lg">
+            </div>
+          </div>
+        </div>
+
+        <!-- Calculated Metrics -->
+        <div class="pt-2 border-t border-slate-100 space-y-2">
+          <div class="flex justify-between items-center">
+            <span class="text-slate-500">Lãi Ròng / Margin:</span>
+            <span id="sideCalcMargin" class="font-black text-emerald-600">-- ₩ (--%)</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-500">Pre-ad Margin:</span>
+            <span id="sideCalcPreAd" class="font-bold text-blue-700">-- ₩</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-500">ROAS Hòa Vốn:</span>
+            <span id="sideCalcRoas" class="font-bold text-amber-700">--%</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-slate-500">CPA Tối Đa Cho Phép:</span>
+            <span id="sideCalcMaxCpa" class="font-bold text-purple-700">-- ₩</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="js/lucide.min.js"></script>
+  <script src="../core/kcRules.js"></script>
+  <script src="../core/materialEngine.js"></script>
+  <script src="../core/feeCalculator.js"></script>
+  <script src="../core/winAlgorithm.js"></script>
+  <script src="../storage/storageRepository.js"></script>
+  <script src="js/sidepanel.js"></script>
+</body>
+</html>

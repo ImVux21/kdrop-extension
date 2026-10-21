@@ -1,0 +1,47 @@
+/* K-Drop Extension Custom Styles */
+:root {
+  --coupang-blue: #0074e9;
+  --coupang-red: #e31e24;
+  --alibaba-orange: #ff6000;
+}
+
+.text-coupang-blue { color: #0074e9 !important; }
+.bg-coupang-blue { background-color: #0074e9 !important; }
+.border-coupang-blue { border-color: #0074e9 !important; }
+
+.text-coupang-red { color: #e31e24 !important; }
+.bg-coupang-red { background-color: #e31e24 !important; }
+
+.text-alibaba-orange { color: #ff6000 !important; }
+.bg-alibaba-orange { background-color: #ff6000 !important; }
+.border-alibaba-orange { border-color: #ff6000 !important; }
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Scrollbar tweaks */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

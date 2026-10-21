@@ -1,0 +1,212 @@
+[
+  {
+    "name": "Normal search position is not verified BSR",
+    "pass": true,
+    "expected": {
+      "rank": null,
+      "demandKnown": false
+    },
+    "actual": {
+      "rank": null,
+      "demandKnown": false
+    }
+  },
+  {
+    "name": "Missing source/date/variant/quantity/seller URL keeps dossier pending",
+    "pass": true,
+    "expected": "needs_verification",
+    "actual": "needs_verification"
+  },
+  {
+    "name": "Missing shipping evidence keeps dossier pending",
+    "pass": true,
+    "expected": "needs_verification",
+    "actual": "needs_verification"
+  },
+  {
+    "name": "Negative Rocket count cannot pass competition criterion",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Unknown title is not confirmed safe by absence of keywords",
+    "pass": true,
+    "expected": "REVIEW_REQUIRED",
+    "actual": "REVIEW_REQUIRED"
+  },
+  {
+    "name": "Korean mug keyword matches medium-risk list",
+    "pass": true,
+    "expected": "MEDIUM",
+    "actual": "MEDIUM"
+  },
+  {
+    "name": "Changing verified quote price invalidates verification",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Profit and unit economics share pre-ad contribution",
+    "pass": true,
+    "expected": 56600,
+    "actual": 56600
+  },
+  {
+    "name": "Suggested max sourcing cost reaches promised 30% margin",
+    "pass": true,
+    "expected": true,
+    "actual": true,
+    "detail": {
+      "maxCny": 163,
+      "resultMarginPct": 30
+    }
+  },
+  {
+    "name": "Financial input exchangeRateCnyKrw rejects negative values",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Financial input platformCommissionRate rejects negative values",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Financial input buyingAgentFeeRate rejects negative values",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Financial input returnAllowanceKrw rejects negative values",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Unrounded margin below 25% fails eligibility",
+    "pass": true,
+    "expected": "not_eligible",
+    "actual": "not_eligible",
+    "detail": {
+      "exactMargin": 24.999,
+      "displayMargin": 25
+    }
+  },
+  {
+    "name": "Restore backup restores dossier of an existing product",
+    "pass": true,
+    "expected": {
+      "cost": 123,
+      "watchlist": true,
+      "searches": 12345
+    },
+    "actual": {
+      "cost": 123,
+      "watchlist": true,
+      "searches": 12345
+    }
+  },
+  {
+    "name": "Invalid record rejects whole import without partial write",
+    "pass": true,
+    "expected": {
+      "rejected": true,
+      "count": 0
+    },
+    "actual": {
+      "rejected": true,
+      "count": 0
+    }
+  },
+  {
+    "name": "Migration retains explicit zero commission and shipping",
+    "pass": true,
+    "expected": {
+      "commission": 0,
+      "shipping": 0
+    },
+    "actual": {
+      "commission": 0,
+      "shipping": 0
+    }
+  },
+  {
+    "name": "Scenario target price does not overwrite observed Coupang price",
+    "pass": true,
+    "expected": 110000,
+    "actual": 110000
+  },
+  {
+    "name": "Non-automotive furniture keeps category in 1688 search",
+    "pass": true,
+    "expected": false,
+    "actual": false
+  },
+  {
+    "name": "Quantity 14 does not become a set of 4",
+    "pass": true,
+    "expected": "1_piece",
+    "actual": "1_piece"
+  },
+  {
+    "name": "Rescan refreshes observed discount",
+    "pass": true,
+    "expected": 10,
+    "actual": 10
+  },
+  {
+    "name": "Independent extension views preserve simultaneous edits",
+    "pass": true,
+    "expected": {
+      "cost": 333,
+      "watchlist": true
+    },
+    "actual": {
+      "cost": 333,
+      "watchlist": true
+    }
+  },
+  {
+    "name": "Schema v2 import recomputes eligibility from missing evidence",
+    "pass": true,
+    "expected": "needs_verification",
+    "actual": "needs_verification"
+  },
+  {
+    "name": "Malformed categories reject import before product write",
+    "pass": true,
+    "expected": {
+      "rejected": true,
+      "count": 0
+    },
+    "actual": {
+      "rejected": true,
+      "count": 0
+    }
+  },
+  {
+    "name": "Saved agent percentage applies when only percentage is entered",
+    "pass": true,
+    "expected": 1900,
+    "actual": 1900
+  },
+  {
+    "name": "Storage write failure rejects, preserves data and sends no success broadcast",
+    "pass": true,
+    "expected": {
+      "rejected": true,
+      "cost": 100,
+      "broadcasts": 0
+    },
+    "actual": {
+      "rejected": true,
+      "cost": 100,
+      "broadcasts": 0
+    }
+  }
+]
